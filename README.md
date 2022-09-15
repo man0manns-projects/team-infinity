@@ -21,3 +21,11 @@ Bank web app for fundraiser and donation management
 - Abdi - Front-end development
 - Haritha - Front-end development 
 - Karan - Front-end UI & Integration Manager (just making sure that technical requirements are met with integrations) 
+
+##Overall Goals 
+Obviously we will have an official project plan, but this is a just rough draft so we don't forget anything.
+- App prototype ready by Oct. 15
+**Stretch goals**
+- Deploy the project into a windows server/cloud instance
+- Security scan your application & fix Critical issues at a minimum
+- Options for user if they forgot their username or password
