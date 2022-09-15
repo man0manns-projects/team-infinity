@@ -16,8 +16,8 @@ Bank web app for fundraiser and donation management
 - Ad hoc virtual meetings via Discord as necessary 
 
 ## Roles
-Melisa - Back-end development
-Elizabeth - Team Lead & Back-End Development
-Abdi - Front-end development
-Haritha - Front-end development 
-Karan - Front-end UI & Integration Manager (just making sure that technical requirements are met with integrations) 
+- Melisa - Back-end development
+- Elizabeth - Team Lead & Back-End Development
+- Abdi - Front-end development
+- Haritha - Front-end development 
+- Karan - Front-end UI & Integration Manager (just making sure that technical requirements are met with integrations) 
