@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>Action Menu Button</title>
+    <link rel="stylesheet" href="styyle.css">
+     </head>
+<body>
+    <div class="action">
+        <div class="menu">
+            <ul>
+                <li><img src="profile.png"><a href="#">My Profile</a></li>
+                <li><img src="settings.png"><a href="#">Settings</a></li>
+                <li><img src="Logout.png"><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <script>  
+    </script>
+</body>
+</html>
