@@ -1,0 +1,2 @@
+--Login Check 
+SELECT COUNT(email_address) FROM application.users WHERE email_address=@email_address AND password=@password
