@@ -1,9 +1,9 @@
 ﻿namespace WebAPI2.Models
 {
-    public class Department
+    public class Example
     {
-        public int DepartmentId { get; set; }  
+        public int FundraiserId { get; }  
 
-        public string DepartmentName { get; set; }
+        public string Title { get; set; }
     }
 }

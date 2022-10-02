@@ -34,11 +34,5 @@ app.UseCors(builder =>
            .AllowAnyHeader();
 });
 
-//ability to upload photos to folder
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Photos")),
-    RequestPath="/Photos"
-});
 
 app.Run();
