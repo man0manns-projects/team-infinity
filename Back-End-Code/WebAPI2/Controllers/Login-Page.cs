@@ -33,8 +33,10 @@ namespace WebAPI2.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[2];
-                    param[0] = new SqlParameter("@username", txtUsername.Text);
-                    param[1] = new SqlParameter("@pwd", txtPwd.Text);
+                    //param[0] = new SqlParameter("@username", txtUsername.Text);
+                    param[0] = new SqlParameter("@username", "Username for testing");
+                    //param[1] = new SqlParameter("@pwd", txtPwd.Text);
+                    param[1] = new SqlParameter("@pwd", "Password for testing");
                     myCommand.Parameters.Add(param[0]);
                     myCommand.Parameters.Add(param[1]);
                     myReader = myCommand.ExecuteReader();
