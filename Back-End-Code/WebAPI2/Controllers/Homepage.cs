@@ -18,12 +18,14 @@ namespace WebAPI2.Controllers
             _configuration = configuration;
         }
 
+        //data returned for fundraiser dashboard
+
         [HttpGet]
 
         public JsonResult Get(int current_userid)
         {
             string query = @"
-                    SELECT TOP 8 FROM application.fundraiser WHERE user_id != @current_userid";
+                    SELECT TOP 8 FROM dbo.fundraiser WHERE user_id != @current_userid";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
@@ -48,10 +50,15 @@ namespace WebAPI2.Controllers
 
     //insert new fundraiser
     [HttpPost]
-    public JsonResult Post(int user, string fundraiserName, string fundraiserDescription, int initAmount)
+    public JsonResult Post(int user, string fundraiserName, string fundraiserDescription, int initAmount, [FromBody] UploadCustomerImageModel model)
     {
+        //TODO: Add file upload
+        var imageDataByteArray = Convert.FromBase64String(model.ImageData);
+        var imageDataStream = new MemoryStream(imageDataByteArray);
+	    imageDataStream.Position = 0;
+
         string query = @"
-                    INSERT INTO dbo.users (f_name, l_name, email_address, password) VALUES (@firstName, @lastName, @usernameEmail, @pwd)";
+                    INSERT INTO dbo.fundraiser (user_id, title, txt_description, amount_raised, img_url) VALUES (@userID, @title, @description, @amount, NULL)";
         DataTable table = new DataTable();
         string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
         SqlDataReader myReader;
@@ -61,10 +68,10 @@ namespace WebAPI2.Controllers
             using (SqlCommand myCommand = new SqlCommand(query, myCon))
             {
                 SqlParameter[] param = new SqlParameter[4];
-                param[0] = new SqlParameter("@firstName", firstName);
-                param[1] = new SqlParameter("@lastName", lastName);
-                param[2] = new SqlParameter("@usernameEmail", usernameEmail);
-                param[3] = new SqlParameter("@pwd", password);
+                param[0] = new SqlParameter("@userID", user);
+                param[1] = new SqlParameter("@title", fundraiserName);
+                param[2] = new SqlParameter("@description", fundraiserDescription);
+                param[3] = new SqlParameter("@amount", initAmount);
                 myCommand.Parameters.Add(param[0]);
                 myCommand.Parameters.Add(param[1]);
                 myCommand.Parameters.Add(param[2]);
