@@ -50,12 +50,12 @@ namespace WebAPI2.Controllers
 
     //insert new fundraiser
     [HttpPost]
-    public JsonResult Post(int user, string fundraiserName, string fundraiserDescription, int initAmount, [FromBody] UploadCustomerImageModel model)
+    public JsonResult Post(int user, string fundraiserName, string fundraiserDescription, int initAmount)
     {
         //TODO: Add file upload
-        var imageDataByteArray = Convert.FromBase64String(model.ImageData);
-        var imageDataStream = new MemoryStream(imageDataByteArray);
-	    imageDataStream.Position = 0;
+        //var imageDataByteArray = Convert.FromBase64String(model.ImageData);
+        //var imageDataStream = new MemoryStream(imageDataByteArray);
+	    //imageDataStream.Position = 0;
 
         string query = @"
                     INSERT INTO dbo.fundraiser (user_id, title, txt_description, amount_raised, img_url) VALUES (@userID, @title, @description, @amount, NULL)";
