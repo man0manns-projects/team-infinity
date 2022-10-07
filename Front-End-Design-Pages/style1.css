@@ -1,4 +1,4 @@
- html:focus-within {
+html:focus-within {
   scroll-behavior: smooth;
 }
 
@@ -7,35 +7,12 @@ body {
   height: 100%;
 }
 
-body {
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-}
-
-button {
-  padding: 1em 2.5em;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
 .padding-block-700 {
   padding-block: 3rem;
 }
 
 .padding-block-900 {
   padding-block: 5rem;
-}
-
-footer {
-  padding-bottom: 0;
-  background-color: rgb(245, 245, 245);
 }
 
 .container {
@@ -51,14 +28,19 @@ footer {
   gap: 1rem;
 }
 
+@media (max-width: 400px) {
+  .even-columns {
+    grid-template-columns: 1fr;
+  }
+}
 
-@media (max-width: 750px) {
+@media (min-width: 500px) and (max-width: 650px) {
   .even-columns {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (min-width: 751px) and (max-width: 999px) {
+@media (min-width: 651px) and (max-width: 999px) {
   .even-columns {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -110,12 +92,69 @@ footer {
   padding: 0.5rem 0.5rem;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+.flex-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 30px;
+}
+
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 3rem;
+  gap: 0.5rem;
+}
+
+.footer-list a {
+  text-decoration: none;
+  color: black;
+}
+
+.button {
+  display: inline-flex;
+  cursor: pointer;
+  text-decoration: none;
+  border: 0;
+  border-radius: 4px;
+  padding: 1em 2em;
+  font-size: 20px;
+  line-height: 1;
+  background-color: orange;
+  color: white;
+}
+
 /* general styling */
 
 body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
   font-size: 0.8125rem;
   font-family: Arial, Helvetica, sans-serif;
+}
 
+button {
+  padding: 1em 2.5em;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+footer {
+  padding-bottom: 0;
+  background-color: rgb(245, 245, 245);
 }
 
 ul {
