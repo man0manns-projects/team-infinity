@@ -107,7 +107,7 @@ namespace WebAPI2.Controllers
 
         //insert new fundraiser
         [HttpPost]
-        public JsonResult Post(int userID, string fundraiserName, string fundraiserDescription, int initAmount)
+        public JsonResult NewFundraiser(int userID, string fundraiserName, string fundraiserDescription, int initAmount)
         {
             //TODO: Add file upload
             //var imageDataByteArray = Convert.FromBase64String(model.ImageData);
