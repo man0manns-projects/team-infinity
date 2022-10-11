@@ -18,10 +18,10 @@ namespace WebAPI2.Controllers
             _configuration = configuration;
         }
 
-        //data returned for fundraiser dashboard
+        //other users fundraiser dashboard 
         [HttpGet]
 
-        public JsonResult Get(int current_userid)
+        public JsonResult GetOtherFundraisers(int userID)
         {
             string query = @"
                     SELECT TOP 8 * FROM dbo.fundraisers WHERE user_id != @current_userid";
@@ -34,7 +34,7 @@ namespace WebAPI2.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[1];
-                    param[0] = new SqlParameter("@current_userid", current_userid);
+                    param[0] = new SqlParameter("@current_userid", userID);
                     myCommand.Parameters.Add(param[0]);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -51,7 +51,7 @@ namespace WebAPI2.Controllers
         [Route("User")]
         [HttpGet]
 
-        public JsonResult GetMyFundraisers(int my_userid)
+        public JsonResult GetMyFundraisers(int userID)
         {
             string query = @"
                     SELECT TOP 8 * FROM dbo.fundraisers WHERE user_id = @current_userid";
@@ -64,7 +64,36 @@ namespace WebAPI2.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[1];
-                    param[0] = new SqlParameter("@current_userid", my_userid);
+                    param[0] = new SqlParameter("@current_userid", userID);
+                    myCommand.Parameters.Add(param[0]);
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        //return username for current user
+        [Route("Hello")]
+        [HttpGet]
+
+        public JsonResult GetUsername(int userID)
+        {
+            string query = @"
+                    SELECT f_name, l_name FROM users WHERE user_id = @current_userid";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    SqlParameter[] param = new SqlParameter[1];
+                    param[0] = new SqlParameter("@current_userid", userID);
                     myCommand.Parameters.Add(param[0]);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -78,7 +107,7 @@ namespace WebAPI2.Controllers
 
         //insert new fundraiser
         [HttpPost]
-        public JsonResult Post(int user, string fundraiserName, string fundraiserDescription, int initAmount)
+        public JsonResult Post(int userID, string fundraiserName, string fundraiserDescription, int initAmount)
         {
             //TODO: Add file upload
             //var imageDataByteArray = Convert.FromBase64String(model.ImageData);
@@ -96,7 +125,7 @@ namespace WebAPI2.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[4];
-                    param[0] = new SqlParameter("@userID", user);
+                    param[0] = new SqlParameter("@userID", userID);
                     param[1] = new SqlParameter("@title", fundraiserName);
                     param[2] = new SqlParameter("@description", fundraiserDescription);
                     param[3] = new SqlParameter("@amount", initAmount);

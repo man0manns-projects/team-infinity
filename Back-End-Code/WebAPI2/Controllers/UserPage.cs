@@ -18,13 +18,13 @@ namespace WebAPI2.Controllers
         }
 
 
-        //authenticate new user - retrieve user_id to assign to variable
+        //get user information 
         [HttpGet]
 
-        public JsonResult Get(string userEmail, string password)
+        public JsonResult GetUserInfo(int userID)
         {
             string query = @"
-                    SELECT user_id FROM dbo.users WHERE email_address=@username AND password=@pwd";
+                    SELECT * FROM users WHERE user_id= @user_id";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
@@ -33,27 +33,24 @@ namespace WebAPI2.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    SqlParameter[] param = new SqlParameter[2];
-                    param[0] = new SqlParameter("@username", userEmail);
-                    param[1] = new SqlParameter("@pwd", password);
+                    SqlParameter[] param = new SqlParameter[1];
+                    param[0] = new SqlParameter("@user_id", userID;
                     myCommand.Parameters.Add(param[0]);
-                    myCommand.Parameters.Add(param[1]);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
                     myCon.Close();
                 }
             }
-            //TODO: in ReactJS -  IF EMPTY then wrong credentials. If returns userid then correct credentials
             return new JsonResult(table);
         }
 
-        //insert new user
+        //update user information 
         [HttpPost]
-        public JsonResult Post(string firstName, string lastName, string userEmail, string password)
+        public JsonResult UpdateUser(string firstName, string lastName, string userEmail, string password)
         {
             string query = @"
-                    INSERT INTO dbo.users (f_name, l_name, email_address, password) VALUES (@firstName, @lastName, @usernameEmail, @pwd)";
+                    UPDATE users SET f_name = @new_fname, l_name = @new_lname, email_address = @new_email, password=@new_password WHERE user_id = @user_id";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
@@ -63,10 +60,10 @@ namespace WebAPI2.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[4];
-                    param[0] = new SqlParameter("@firstName", firstName);
-                    param[1] = new SqlParameter("@lastName", lastName);
-                    param[2] = new SqlParameter("@usernameEmail", userEmail);
-                    param[3] = new SqlParameter("@pwd", password);
+                    param[0] = new SqlParameter("@new_fname", firstName);
+                    param[1] = new SqlParameter("@new_lname", lastName);
+                    param[2] = new SqlParameter("@new_email", userEmail);
+                    param[3] = new SqlParameter("@new_password", password);
                     myCommand.Parameters.Add(param[0]);
                     myCommand.Parameters.Add(param[1]);
                     myCommand.Parameters.Add(param[2]);
