@@ -9,11 +9,11 @@ namespace WebAPI2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DashboardController : ControllerBase
+    public class DonationController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public DashboardController(IConfiguration configuration)
+        public DonationController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -71,7 +71,7 @@ VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
         //insert card information
         [HttpPost]
         [Route("Card")]
-        public JsonResult InsertCardInformation(string nickname, int userID, int cardNumber, int securityCode, string cardholderName, date expirationDate)
+        public JsonResult InsertCardInformation(string nickname, int userID, int cardNumber, int securityCode, string cardholderName, string expirationDate)
         {
             string query = @"
                     INSERT INTO cards (nickname, user_id, card_number, security_code, cardholder_name, expiration_date)

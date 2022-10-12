@@ -8,11 +8,11 @@ namespace WebAPI2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public LoginController(IConfiguration configuration)
+        public UserController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -34,7 +34,7 @@ namespace WebAPI2.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[1];
-                    param[0] = new SqlParameter("@user_id", userID;
+                    param[0] = new SqlParameter("@user_id", userID);
                     myCommand.Parameters.Add(param[0]);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

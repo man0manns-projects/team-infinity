@@ -48,8 +48,7 @@ namespace WebAPI2.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(string firstName, string lastName, string userEmail, string password)
-        public JsonResult NewUser(string firstName, string lastName, string usernameEmail, string password)
+        public JsonResult NewUser(string firstName, string lastName, string userEmail, string password)
         {
             string query = @"
                     INSERT INTO dbo.users (f_name, l_name, email_address, password) VALUES (@firstName, @lastName, @usernameEmail, @pwd)";
