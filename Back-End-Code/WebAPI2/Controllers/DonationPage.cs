@@ -25,13 +25,26 @@ namespace WebAPI2.Controllers
             string query = @"
                     INSERT INTO donations (user_id, fundraiser_id, donation_amt, payment_id, notes, street_address, city_town, zipcode, country, phone, email_address)
 VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)";
+            string queryTwo = @"
+                    UPDATE fundraisers SET amount_raised = amount_raised + @amount WHERE fundraiserID = @this_fundraiser;";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                using (SqlCommand moneyCommand = new SqlCommand(queryTwo, myCon))
+                {
+                    SqlParameter[] param = new SqlParameter[2];
+                    param[0] = new SqlParameter("@this_fundraiser", fundraiserID);
+                    param[1] = new SqlParameter("@amount", donationAmount);
+                    moneyCommand.Parameters.Add(param[0]);
+                    moneyCommand.Parameters.Add(param[1]);
+                    //TODO: Integrate with ReactJS variables
+                    myReader = moneyCommand.ExecuteReader();
+                    myReader.Close();
+                }
+                using (SqlCommand myCommand = new SqlCommand(queryTwo, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[11];
                     param[0] = new SqlParameter("@user_id", userID);
@@ -60,8 +73,8 @@ VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
-                    myCon.Close();
                 }
+                myCon.Close();
             }
             //TODO: Could return the data here to pass into variables that will display on confirmation page
             return new JsonResult("200");
