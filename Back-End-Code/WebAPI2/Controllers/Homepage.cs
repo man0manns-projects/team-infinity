@@ -18,10 +18,9 @@ namespace WebAPI2.Controllers
             _configuration = configuration;
         }
 
-        //data returned for fundraiser dashboard
         [HttpGet]
 
-        public JsonResult Get(int current_userid)
+        public JsonResult GetFundraiserDashboard(int current_userid)
         {
             string query = @"
                     SELECT TOP 8 * FROM dbo.fundraisers WHERE user_id != @current_userid";
@@ -47,11 +46,10 @@ namespace WebAPI2.Controllers
         }
 
 
-        //get fundraisers for current user
         [Route("User")]
         [HttpGet]
 
-        public JsonResult GetMyFundraisers(int my_userid)
+        public JsonResult GetUserFundraisers(int my_userid)
         {
             string query = @"
                     SELECT TOP 8 * FROM dbo.fundraisers WHERE user_id = @current_userid";
@@ -76,9 +74,8 @@ namespace WebAPI2.Controllers
             return new JsonResult(table);
         }
 
-        //insert new fundraiser
         [HttpPost]
-        public JsonResult Post(int user, string fundraiserName, string fundraiserDescription, int initAmount)
+        public JsonResult NewFundraiser(int user, string fundraiserName, string fundraiserDescription, int initAmount)
         {
             //TODO: Add file upload
             //var imageDataByteArray = Convert.FromBase64String(model.ImageData);

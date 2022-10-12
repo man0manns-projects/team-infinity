@@ -18,10 +18,9 @@ namespace WebAPI2.Controllers
         }
 
 
-        //authenticate new user - retrieve user_id to assign to variable
         [HttpGet]
 
-        public JsonResult Get(string usernameEmail, string password)
+        public JsonResult Authenticate(string usernameEmail, string password)
         {
             string query = @"
                     SELECT user_id FROM dbo.users WHERE email_address=@username AND password=@pwd";
@@ -48,9 +47,8 @@ namespace WebAPI2.Controllers
             return new JsonResult(table);
         }
 
-        //insert new user
         [HttpPost]
-        public JsonResult Post(string firstName, string lastName, string usernameEmail, string password)
+        public JsonResult NewUser(string firstName, string lastName, string usernameEmail, string password)
         {
             string query = @"
                     INSERT INTO dbo.users (f_name, l_name, email_address, password) VALUES (@firstName, @lastName, @usernameEmail, @pwd)";
