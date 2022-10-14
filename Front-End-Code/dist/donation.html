@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Form</title>
+
+    <!-- STYLE CSS -->
+		<link rel="stylesheet" href="css/donation.css">
+        
+</head>
+<body>
+   
+    <header class="site-navbar" role="banner">
+        <nav class="site-navigation position-relative text-right" role="navigation">
+            <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+              <li class="active"><a href="home.html"><span>Home</span></a></li>
+              <li><a href="#"><span>Fundraisers</span></a></li>
+              <li><a href="donation.html"><span>Donation Form</span></a></li>
+              <li><a href="signin.html"><span>Log In</span></a></li>
+              <li><a href="signup.html"><span>Sign Up</span></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="wrapper">
+        
+        <form action="">
+            <div id="wizard">
+                <!-- SECTION 1 -->
+                <h4></h4>
+                <section>
+                    <div class="form-row form-group">
+                        <div class="form-holder">
+                            <label for="">
+                            First Name *
+                            </label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-holder">
+                            <label for="">
+                            Last Name *
+                            </label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>	
+
+                    <div class="form-row">
+                        <label for="">
+                            Address *
+                        </label>
+                        <input type="text" class="form-control" placeholder="Street address" style="margin-bottom: 20px">
+                        <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+                    </div>	
+                    <div class="form-row">
+                        <label for="">
+                            Town / City *
+                        </label>
+                        <input type="text" class="form-control">
+                    </div>
+                </section>
+                
+                <!-- SECTION 2 -->
+                <h4></h4>
+                <section>
+                    <div class="form-row form-group">
+                        <div class="form-holder">
+                            <label for="">
+                            Zipcode *
+                            </label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-holder">
+                            <label for="">
+                            Country *
+                            </label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>	
+                    <div class="form-row form-group">
+                        <div class="form-holder">
+                            <label for="">
+                            Phone *
+                            </label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-holder">
+                            <label for="">
+                            Email Address *
+                            </label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>	
+                    <div class="form-row" style="margin-bottom: 18px">
+                        <label for="">
+                            A Note
+                        </label>
+                        <textarea name="" id="" class="form-control" placeholder="A short note about your donation" style="height: 30px"></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Create an account?
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- <div class="form-group form-button">
+                        <a href="donation_2.html" class="next"></a>
+                        <input  type="submit" name="signup" id="signup" class="form-submit" value="Next"></input>
+                        </a>
+                </div> -->
+                <style>
+                    .button {
+                      background-color: #e49444;
+                      border-radius: 20%;
+                      border: none;
+                      color: white;
+                      padding: 10px 20px;
+                      text-align: center;
+                      text-decoration: none;
+                      display: inline-block;
+                      float: right;
+                      font-size: 16px;
+                      margin: 4px 2px;
+                      cursor: pointer;
+                    }
+                    </style>
+                    <a href="donation_2.html" class="button">Next</a>
+                
+            </div>
+        </form>
+    </div>
+
+
+    <script src="js/main.js"></script>
+</body>
+</html>
