@@ -24,7 +24,7 @@ namespace WebAPI2.Controllers
         {
             string query = @"
                     INSERT INTO donations (user_id, fundraiser_id, donation_amt, payment_id, notes, street_address, city_town, zipcode, country, phone, email_address)
-VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)";
+VALUES (@user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)";
             string queryTwo = @"
                     UPDATE fundraisers SET amount_raised = amount_raised + @amount WHERE fundraiser_id = @this_fundraiser;";
             DataTable table = new DataTable();
@@ -33,18 +33,7 @@ VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
-                using (SqlCommand moneyCommand = new SqlCommand(query, myCon))
-                {
-                    SqlParameter[] param = new SqlParameter[2];
-                    param[0] = new SqlParameter("@this_fundraiser", fundraiserID);
-                    param[1] = new SqlParameter("@amount", donationAmount);
-                    moneyCommand.Parameters.Add(param[0]);
-                    moneyCommand.Parameters.Add(param[1]);
-                    //TODO: Integrate with ReactJS variables
-                    myReader = moneyCommand.ExecuteReader();
-                    myReader.Close();
-                }
-                using (SqlCommand myCommand = new SqlCommand(queryTwo, myCon))
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[11];
                     param[0] = new SqlParameter("@user_id", userID);
@@ -74,6 +63,17 @@ VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
                     table.Load(myReader);
                     myReader.Close();
                 }
+                using (SqlCommand moneyCommand = new SqlCommand(queryTwo, myCon))
+                {
+                    SqlParameter[] param = new SqlParameter[2];
+                    param[0] = new SqlParameter("@this_fundraiser", fundraiserID);
+                    param[1] = new SqlParameter("@amount", donationAmount);
+                    moneyCommand.Parameters.Add(param[0]);
+                    moneyCommand.Parameters.Add(param[1]);
+                    //TODO: Integrate with ReactJS variables
+                    myReader = moneyCommand.ExecuteReader();
+                    myReader.Close();
+                }
                 myCon.Close();
             }
             //TODO: Could return the data here to pass into variables that will display on confirmation page
@@ -84,11 +84,11 @@ VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
         //insert card information
         [HttpPost]
         [Route("Card")]
-        public JsonResult InsertCardInformation(string nickname, int userID, int cardNumber, int securityCode, string cardholderName, string expirationDate)
+        public JsonResult InsertCardInformation(string nickname, int userID, string cardNumber, string securityCode, string cardholderName, string expirationDate)
         {
             string query = @"
                     INSERT INTO cards (nickname, user_id, card_number, security_code, cardholder_name, expiration_date)
-VALUE (@nickname, @user_id, @new_card, @new_security, @new_names, @new_exp_date)";
+VALUES (@nickname, @user_id, @new_card, @new_security, @new_names, @new_exp_date)";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
@@ -125,11 +125,11 @@ VALUE (@nickname, @user_id, @new_card, @new_security, @new_names, @new_exp_date)
         //insert bank information
         [HttpPost]
         [Route("Bank")]
-        public JsonResult InsertBankInformation(string nickname, int userID, int routingNumber, int accountNumber)
+        public JsonResult InsertBankInformation(string nickname, int userID, string routingNumber, string accountNumber)
         {
             string query = @"
-                    INSERT INTO bankaccount (nickname, user_id, routing_number, account_number)
-VALUE ( @nickname, @user_id, @new_routing, @new_account_num)";
+                    INSERT INTO bankaccounts (nickname, user_id, routing_number, account_number)
+VALUES ( @nickname, @user_id, @new_routing, @new_account_num)";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
