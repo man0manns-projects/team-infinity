@@ -26,7 +26,7 @@ namespace WebAPI2.Controllers
                     INSERT INTO donations (user_id, fundraiser_id, donation_amt, payment_id, notes, street_address, city_town, zipcode, country, phone, email_address)
 VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)";
             string queryTwo = @"
-                    UPDATE fundraisers SET amount_raised = amount_raised + @amount WHERE fundraiserID = @this_fundraiser;";
+                    UPDATE fundraisers SET amount_raised = amount_raised + @amount WHERE fundraiser_id = @this_fundraiser;";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
