@@ -33,7 +33,7 @@ VALUE ( @user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
-                using (SqlCommand moneyCommand = new SqlCommand(queryTwo, myCon))
+                using (SqlCommand moneyCommand = new SqlCommand(query, myCon))
                 {
                     SqlParameter[] param = new SqlParameter[2];
                     param[0] = new SqlParameter("@this_fundraiser", fundraiserID);
