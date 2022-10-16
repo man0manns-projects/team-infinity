@@ -1,0 +1,115 @@
+Features past the prototype highlighted in green 
+Login Page
+
+Assigning the user_id to a variable so we can pass that back in later queries. 
+SELECT user_id FROM users WHERE username=@username AND password=@pwd
+
+
+--Sign up insert statement 
+INSERT INTO users (email_address, password)
+VALUES (@user_email, @user_pw); 
+
+Fundraiser Page (unique)
+
+
+SELECT amount_raised, goal
+FROM fundraisers
+WHERE fundraiser_id = @fundraiser_id
+
+--Amount raised for graphic of fundraiser progress on fundraiser page 
+SELECT amount_raised, goal
+FROM fundraisers
+WHERE fundraiser_id = @fundraiser_id
+
+
+--List of most recent donation amounts and donors on fundraiser page 
+— 3
+SELECT DISTINCT TOP 3 user_id,donation_amt,
+FROM donations
+WHERE fundraiser_id = @fundraiser_id
+
+DONATION PAGE
+--Insert all the data from the donation form 
+
+
+For existing account:
+Pull customer info for auto fill:
+–user info
+SELECT * FROM users WHERE user_id = @user_id
+
+If payment type = 0 (credit) 
+–Check if payment type exist in account
+    If yes:
+–Return credit info (Dropbox for multiple cards - ReactJS)
+SELECT nickname FROM cards WHERE user_id = @user_id
+– select desired card:
+SELECT * FROM cards WHERE nickname = @nickname
+Else:
+    -Add new card to database 
+INSERT INTO cards (nickname, user_id, card_number, security_code, cardholder_name, expiration_date)
+VALUE (@nickname, @user_id, @new_card, @new_security, @new_names, @new_exp_date)
+
+If payment type = 1 (bank)
+–Check if bank account exist in account
+If yes:
+– Return banking info (drop down list)
+SELECT nickname FROM bankaccounts WHERE user_id =@user_id
+– selected desired bank account:
+SELECT * FROM bankaccounts WHERE nickname = @nickname
+Else:
+–insert bank info AND SAVE
+INSERT INTO bankaccount (nickname, user_id, routing_number, account_number)
+VALUE ( @nickname, @user_id, @new_routing, @new_account_num)
+
+
+Submit donation
+
+INSERT INTO donations (user_id, fundraiser_id, donation_amt, payment_id, notes, street_address, city_town, zipcode, country, phone, email_address)
+VALUE ( @user_id, @this_funraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)
+
+
+For guest donations: (guest’s user_id = 0)
+
+INSERT INTO donations (user_id, fundraiser_id, donation_amt, payment_id, notes,street_address,city_town, zipcode, country, phone, email_address)
+VALUE ( user_id = 0, @this_funraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)
+
+
+
+USER PROFILE
+
+User home/dash 
+--Fundraiser dashboard - return fundraisers created by other users 
+SELECT TOP 8 *
+FROM fundraisers
+WHERE user_id <> @user_id
+
+--User create new fundraiser 
+INSERT INTO fundraisers (title, txt_description, goal, amount_raised, img_url)
+VALUES (@new_title, @new_description, @goal, amount_raised = ‘0’, @new_url); 
+
+--viewing their active fundraisers 
+SELECT TOP 8 * FROM fundraisers WHERE user_id = @user_id
+
+–display user name for greeting (Hello, Bob Smith!)
+SELECT f_name, l_name FROM users WHERE user_id = @user_id
+
+USER INFO
+Just a note - from a ReactJS perspective we will just pull back all the fields in the form when the user hits update as parameters passed to the API funtion (whether it's a different value or not) and update the corresponding row
+– view user info page
+SELECT * FROM users WHERE user_id= @user_id
+To update:
+UPDATE users SET f_name = new_fname, l_name = new_lname, email_address = new_email WHERE user_id = @user_id
+– view payment options
+Banking: Be sure to blur #’s except last 4 - “click show for reveal rest of # – reactJS)
+SELECT nickname FROM bankaccounts WHERE user_id = @user_id
+– if user clicks update:
+        UPDATE cards SET f_name = new_fname, l_name = new_lname, email_address = new_email WHERE user_id = @user_id
+
+Credit Card:
+    SELECT nickname FROM cards WHERE user_id = @user_id
+– if user clicks update:
+        UPDATE cards SET f_name = new_fname, l_name = new_lname, email_address = new_email WHERE user_id = @user_id
+
+
+
+
