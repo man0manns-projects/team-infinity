@@ -23,7 +23,7 @@ function App() {
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
                     Fundraisers
                 </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/Login">
+                <NavLink className="d-inline p-2 bg-dark text-white" to="/sign-in">
                     Login
                 </NavLink>
 
