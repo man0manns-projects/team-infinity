@@ -23,7 +23,7 @@ namespace WebAPI2.Controllers
         public JsonResult GetRecentDonors(int fundraiserID)
         {
             string query = @"
-                    SELECT TOP 8 * FROM dbo.donations WHERE fundraiser_id = @current_fundraiser";
+                    SELECT TOP 8 donations.user_id,donations.fundraiser_id,donations.donation_amt,donations.notes,users.f_name,users.l_name,users.email_address FROM dbo.donations AS donations JOIN dbo.users AS users ON donations.user_id=users.user_id AND donations.fundraiser_id=@current_fundraiser;";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
