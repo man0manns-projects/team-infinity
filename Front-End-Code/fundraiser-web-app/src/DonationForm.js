@@ -23,11 +23,6 @@ export class DonationForm extends Component {
               <Form.Control placeholder="1234 Main St" />
             </Form.Group>
       
-            <Form.Group className="mb-3" controlId="formGridAddress2">
-              <Form.Label>Address 2</Form.Label>
-              <Form.Control placeholder="Apartment, studio, or floor" />
-            </Form.Group>
-      
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>City</Form.Label>
