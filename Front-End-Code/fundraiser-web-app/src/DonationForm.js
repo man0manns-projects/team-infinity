@@ -1,30 +1,61 @@
 import React,{Component} from 'react';
+import {Form,Button, Col, Row} from 'react-bootstrap';
 
-export class DonationForm extends Component{
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+export class DonationForm extends Component {
 
-    handleSubmit(event) {
-        event.preventDefault();
-        fetch(`http://20.169.81.116:5199/api/Donation?userID=1&fundraiserID=500&donationAmount=2.00&paymentID=1&notes=another%20test&streetAddress=1234%20Forest%20Hills%20Drive&city=Los%20Angeles&zipcode=7070&country=United%20States&phone=8153424545&emailAddress=jcole%40atlantarecords.com`) {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                DepartmentId: null,
-                DepartmentName: event.target.DepartmentName.value
-            })
-        })
-            .then(res => res.json())
-            .then((result) => {
-                alert(result);
-            },
-            (error) => {
-                alert('Failed');
-            })
+    render() {
+        return (
+            <Form>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="donorFirstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="fname" placeholder="Enter first name" />
+              </Form.Group>
+      
+              <Form.Group as={Col} controlId="donorLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="password" placeholder="Password" />
+              </Form.Group>
+            </Row>
+      
+            <Form.Group className="mb-3" controlId="formGridAddress1">
+              <Form.Label>Address</Form.Label>
+              <Form.Control placeholder="1234 Main St" />
+            </Form.Group>
+      
+            <Form.Group className="mb-3" controlId="formGridAddress2">
+              <Form.Label>Address 2</Form.Label>
+              <Form.Control placeholder="Apartment, studio, or floor" />
+            </Form.Group>
+      
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridCity">
+                <Form.Label>City</Form.Label>
+                <Form.Control />
+              </Form.Group>
+      
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Label>State</Form.Label>
+                <Form.Select defaultValue="Choose...">
+                  <option>Choose...</option>
+                  <option>...</option>
+                </Form.Select>
+              </Form.Group>
+      
+              <Form.Group as={Col} controlId="formGridZip">
+                <Form.Label>Zip</Form.Label>
+                <Form.Control />
+              </Form.Group>
+            </Row>
+      
+            <Form.Group className="mb-3" id="formGridCheckbox">
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+      
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        );
     }
 }

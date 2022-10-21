@@ -1,22 +1,29 @@
 import React from 'react'
 import {NavLink, BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
-import {Navbar,Nav} from 'react-bootstrap';
+import {Navbar,Nav, NavItem} from 'react-bootstrap';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 
 import {Home} from './Home';
 import {UserProfile} from './UserProfile';
+import {DonationForm} from './DonationForm';
 import { ViewFundraiserModal } from './ViewFundraiserModal';
 import Login from './Login';
 import useToken from './useToken';
 
+async function helloUser(identifier){
+  return fetch('http://20.169.81.116:5199/api/Dashboard/Hello?userID='+ identifier)
+  .then(res => res.json()) 
+}
 
 function App() {
 
 const {token, setToken} = useToken();
 
   if(!token) {
+    // const data = JSON.parse(JSON.stringify(helloUser(0)))
+    // const user = data[0].f_name
     return (
 
       <BrowserRouter>
@@ -33,7 +40,7 @@ const {token, setToken} = useToken();
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
                       Login
                   </NavLink>
-  
+                  <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                   </Nav>
                   </Navbar.Collapse>
               </Navbar>
@@ -45,6 +52,7 @@ const {token, setToken} = useToken();
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login setToken={setToken}/> } />
                 <Route exact path="/user" element={ <Navigate to="/login" />} />
+                <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
 
                 {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
                 <Route exact path='/TEST-fundraiser' element={<ViewFundraiserModal />} />
@@ -55,9 +63,10 @@ const {token, setToken} = useToken();
         </div>
       </BrowserRouter>
     ) 
-  }
-
+  } else {
 //if logged in this is rendered
+/* const data = JSON.parse(JSON.stringify(helloUser(token)));
+const user = data[0].f_name; */
   return (
 
     <BrowserRouter>
@@ -74,7 +83,7 @@ const {token, setToken} = useToken();
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/User">
                     User Profile
                 </NavLink>
-
+                <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -96,5 +105,6 @@ const {token, setToken} = useToken();
       </div>
     </BrowserRouter>
   )
+  }
 }
 export default App
