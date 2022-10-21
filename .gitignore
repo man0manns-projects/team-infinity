@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+package-lock.json
+package.json
+.vscode/launch.json
+Front-End-Code/fundraiser-web-app/package-lock.json
+Front-End-Code/fundraiser-web-app/package-lock.json
+Front-End-Code/fundraiser-web-app/package-lock.json
+Front-End-Code/fundraiser-web-app/package-lock.json
+Front-End-Code/fundraiser-web-app/package.json
