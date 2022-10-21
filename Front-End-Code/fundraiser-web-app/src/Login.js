@@ -1,6 +1,10 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types';
 
+/* TEST USER ACCOUNT 
+Username: jeffbezos@amazon.com
+Password: elizabethfundsmyyacht */
+
 async function loginUser(email,password){
   return fetch('http://20.169.81.116:5199/api/Login?userEmail='+ email + '&password=' + password)
   .then(res => res.json())

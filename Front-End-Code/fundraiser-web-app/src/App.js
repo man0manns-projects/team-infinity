@@ -37,6 +37,12 @@ const {token, setToken} = useToken();
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
                       Fundraisers
                   </NavLink>
+                  <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
+                      TEMP: Fundraiser Detail View
+                  </NavLink>
+                  <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-donation-form">
+                      TEMP: Donation Form
+                  </NavLink>
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
                       Login
                   </NavLink>
@@ -52,10 +58,10 @@ const {token, setToken} = useToken();
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login setToken={setToken}/> } />
                 <Route exact path="/user" element={ <Navigate to="/login" />} />
-                <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
 
                 {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
                 <Route exact path='/TEST-fundraiser' element={<ViewFundraiserModal />} />
+                <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
 
               </Routes>
             </div>
@@ -83,6 +89,12 @@ const user = data[0].f_name; */
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/User">
                     User Profile
                 </NavLink>
+                <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
+                      TEMP: Fundraiser Detail View
+                  </NavLink>
+                  <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-donation-form">
+                      TEMP: Donation Form
+                  </NavLink>
                 <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                 </Nav>
                 </Navbar.Collapse>
@@ -98,6 +110,7 @@ const user = data[0].f_name; */
 
               {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
               <Route exact path='/TEST-fundraiser' element={<ViewFundraiserModal />} />
+              <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
 
             </Routes>
           </div>

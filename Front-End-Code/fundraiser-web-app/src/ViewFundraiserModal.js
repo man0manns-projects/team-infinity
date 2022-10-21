@@ -31,13 +31,13 @@ export class ViewFundraiserModal extends Component{
 
     componentDidMount(){
         //this.refreshList(this.props.fundId);
-        this.refreshDonors("500");
-        this.getFundraiserInfo("500");
+        this.refreshDonors("505");
+        this.getFundraiserInfo("505");
     }
     componentDidUpdate(){
         //this.refreshList(this.props.fundId);
-        this.refreshDonors("500");
-        this.getFundraiserInfo("500");
+        this.refreshDonors("505");
+        this.getFundraiserInfo("505");
     }
 
     currencyFormat(moneys) {
