@@ -89,14 +89,5 @@ export class ViewFundraiserModal extends Component{
             </div>
         )
     }
-
-   /*  render(){
-        return(
-            <div className="mt-5 d-flex justify-content-left">
-                This is Fundraiser page.
-            </div>
-        )
-    } */
-
 }
 
