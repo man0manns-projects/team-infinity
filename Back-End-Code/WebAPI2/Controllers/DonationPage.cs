@@ -23,7 +23,7 @@ namespace WebAPI2.Controllers
         public JsonResult InsertDonationForm(int userID, int fundraiserID, float donationAmount, int paymentID, string notes, string streetAddress, string city, int zipcode, string country, string phone, string emailAddress)
         {
             string query = @"
-                    INSERT INTO donations (user_id, fundraiser_id, donation_amt, payment_id, notes, street_address, city_town, zipcode, country, phone, email_address)
+                    INSERT INTO dbo.donations (user_id, fundraiser_id, donation_amt, payment_id, notes, street_address, city_town, zipcode, country, phone, email_address)
 VALUES (@user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @city, @zip, @country, @phone_num, @email)";
             string queryTwo = @"
                     UPDATE fundraisers SET amount_raised = amount_raised + @amount WHERE fundraiser_id = @this_fundraiser;";
@@ -87,7 +87,7 @@ VALUES (@user_id, @this_fundraiser, @amount, @payment_type, @notes, @address, @c
         public JsonResult InsertCardInformation(string nickname, int userID, string cardNumber, string securityCode, string cardholderName, string expirationDate)
         {
             string query = @"
-                    INSERT INTO cards (nickname, user_id, card_number, security_code, cardholder_name, expiration_date)
+                    INSERT INTO dbo.cards (nickname, user_id, card_number, security_code, cardholder_name, expiration_date)
 VALUES (@nickname, @user_id, @new_card, @new_security, @new_names, @new_exp_date)";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
@@ -128,7 +128,7 @@ VALUES (@nickname, @user_id, @new_card, @new_security, @new_names, @new_exp_date
         public JsonResult InsertBankInformation(string nickname, int userID, string routingNumber, string accountNumber)
         {
             string query = @"
-                    INSERT INTO bankaccounts (nickname, user_id, routing_number, account_number)
+                    INSERT INTO dbo.bankaccounts (nickname, user_id, routing_number, account_number)
 VALUES ( @nickname, @user_id, @new_routing, @new_account_num)";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
