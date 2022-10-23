@@ -7,12 +7,13 @@ import discover from './images/discover.png';
 import amex from './images/amex.png';
 import bank from './images/bank.png';
 
-async function donationBasic(email,password){
-  return fetch('http://20.169.81.116:5199/api/Donation?userID='+ userID + '&fundraiserID=' + fundID + '&')
+async function donationBasic(userID,fundID,donationAmount,paymentType,notes,streetAddress,city,zipcode, state, phone, emailAddress){
+  return fetch('http://20.169.81.116:5199/api/Donation?userID='+ userID + '&fundraiserID=' + fundID + '&donationAmount=' + donationAmount + '&paymentID=' + paymentType + '&notes=' + notes + '&streetAddress=' + streetAddress + '&city=' + city + '&zipcode=' + zipcode + '&country=' + state + '&phone=' + phone + '&emailAddress=' + emailAddress)
   .then(res => res.json())
 }
 
 export class DonationForm extends Component {
+
 
     render() {
       var usStates = new UsaStates();
