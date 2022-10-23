@@ -1,13 +1,15 @@
 import React, {useId} from 'react';
 import {Form,Button, Col, Row, InputGroup, Accordion} from 'react-bootstrap';
 import { UsaStates } from 'usa-states';
-import mastercard from './images/mastercard.png';
-import visa from './images/visa.png';
-import discover from './images/discover.png';
-import amex from './images/amex.png';
-import bank from './images/bank.png';
+import mastercard from '../images/mastercard.png';
+import visa from '../images/visa.png';
+import discover from '../images/discover.png';
+import amex from '../images/amex.png';
+import bank from '../images/bank.png';
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid';
+import {useLocation} from 'react-router-dom';
+
 
 /* async function donationBasic(userID,fundID,donationAmount,paymentType,notes,streetAddress,city,zipcode, state, phone, emailAddress){
   return 
@@ -16,12 +18,18 @@ import { v4 as uuid } from 'uuid';
 
 export default function DonationForm(){
 
+      const location = useLocation();
+
       var usStates = new UsaStates();
       var statesNames = usStates.arrayOf('names');
 
       const userID = sessionStorage.getItem('token');
 
-      const currentFundraiser = "505";
+      // const currentFundraiser = "505";
+      const currentFundraiser = location.state.id;
+      const currentFundraiserName = location.state.title;
+      console.log(currentFundraiserName);
+      console.log(currentFundraiser);
       const transactionID = uuid();
       // const [currentFundraiser, setFundID] = useState();
       const [currentDonation, setDonation] = useState();
@@ -76,6 +84,7 @@ export default function DonationForm(){
 
           if(res.status == 200){
           alert("Submitted successfully");
+          window.location='/';
         } else{
           alert("Some error occurred with form submission")
         }
@@ -85,6 +94,8 @@ export default function DonationForm(){
     };
 
         return (
+          <div>
+            <h2>Donating to: {currentFundraiserName}</h2>
             <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="donorFirstName">
@@ -169,9 +180,9 @@ export default function DonationForm(){
             </Accordion.Header>
             <Accordion.Body>
                 <Form.Control type="card" placeholder="Card Holder Name" value={cardHolder} onChange={(e) => setCardholder(e.target.value)}/>
-                <Form.Control type="card" placeholder="Card Number" value={cardNumber} onChange={(e) => setCardnumber(e.target.value)}/>
+                <Form.Control type="card" placeholder="Card Number (No spaces)" value={cardNumber} onChange={(e) => setCardnumber(e.target.value)}/>
                 <Form.Control type="card" placeholder="CVV" value={cvv} onChange={(e) => setCVV(e.target.value)}/>
-                <Form.Control type="card" placeholder="Expiration Date (XX/XX)" value={exp} onChange={(e) => setExp(e.target.value)}/>
+                <Form.Control type="card" placeholder="Expiration Date (MMYY)" value={exp} onChange={(e) => setExp(e.target.value)}/>
 
             </Accordion.Body>
             </Accordion.Item>
@@ -195,7 +206,7 @@ export default function DonationForm(){
               Submit
             </Button>
           </Form>
-
+          </div>
           
         );
 }

@@ -5,7 +5,7 @@ import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
 
 import {Button,ButtonToolbar} from 'react-bootstrap';
-import { AddFundsModal } from './AddFundsModal';
+import { AddFundsModal } from './utils/AddFundsModal';
 
 export class Home extends Component{
 

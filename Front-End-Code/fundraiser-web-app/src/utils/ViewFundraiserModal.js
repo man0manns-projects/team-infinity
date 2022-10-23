@@ -2,8 +2,11 @@ import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import {Link, BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 
-import './App.css';
+
+
+import '../css/App.css';
 
 export class ViewFundraiserModal extends Component{
     
@@ -34,16 +37,13 @@ export class ViewFundraiserModal extends Component{
         this.refreshDonors("505");
         this.getFundraiserInfo("505");
     }
-    componentDidUpdate(){
-        //this.refreshList(this.props.fundId);
-        this.refreshDonors("505");
-        this.getFundraiserInfo("505");
-    }
 
     currencyFormat(moneys) {
         let num = Number(moneys,10);
         return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     };
+
+
 
     render(){
         const {donors}=this.state;
@@ -81,11 +81,14 @@ export class ViewFundraiserModal extends Component{
                     </tbody>
 
                 </Table>
-
+                {info.map(info => 
+                <Link to="/TEST-donation-form" state={{title: info.title, id: info.fundraiser_id}} state2={{id: info.fundraiser_id}}>
                 <ButtonToolbar>
                     <Button variant='primary'>
                     Donate</Button>
                 </ButtonToolbar>
+                </Link>
+                )}
             </div>
         )
     }

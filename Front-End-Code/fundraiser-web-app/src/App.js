@@ -3,16 +3,16 @@ import {NavLink, BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import {Navbar,Nav, NavItem} from 'react-bootstrap';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
+import './css/App.css';
 
 import {Home} from './Home';
 import {UserProfile} from './UserProfile';
-import DonationForm from './DonationForm';
-import { ViewFundraiserModal } from './ViewFundraiserModal';
+import DonationForm from './utils/DonationForm';
+import { ViewFundraiserModal } from './utils/ViewFundraiserModal';
 import {SignUp} from './SignUp';
 
 import Login from './Login';
-import useToken from './useToken';
+import useToken from './utils/useToken';
 
 async function helloUser(identifier){
   return fetch('http://20.169.81.116:5199/api/Dashboard/Hello?userID='+ identifier)
@@ -52,9 +52,6 @@ function App() {
                   </NavLink>
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
                       TEMP: Fundraiser Detail View
-                  </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-donation-form">
-                      TEMP: Donation Form
                   </NavLink>
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
                       Login
@@ -109,9 +106,6 @@ const user = data[0].f_name; */
                 </NavLink>
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
                       TEMP: Fundraiser Detail View
-                  </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-donation-form">
-                      TEMP: Donation Form
                   </NavLink>
                 <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                 </Nav>
