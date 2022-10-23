@@ -12,8 +12,10 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-owl-carousel": "^2.3.3",
+    "react-phone-number-input": "^3.2.12",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "usa-states": "^0.0.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
