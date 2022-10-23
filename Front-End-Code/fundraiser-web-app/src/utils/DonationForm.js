@@ -8,7 +8,7 @@ import amex from '../images/amex.png';
 import bank from '../images/bank.png';
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 
 /* async function donationBasic(userID,fundID,donationAmount,paymentType,notes,streetAddress,city,zipcode, state, phone, emailAddress){
@@ -19,6 +19,7 @@ import {useLocation} from 'react-router-dom';
 export default function DonationForm(){
 
       const location = useLocation();
+      const history = useNavigate();
 
       var usStates = new UsaStates();
       var statesNames = usStates.arrayOf('names');
@@ -96,7 +97,7 @@ export default function DonationForm(){
         return (
           <div>
             <h2>Donating to: {currentFundraiserName}</h2>
-            <Form onSubmit={handleSubmit}>
+            <Form >
             <Row className="mb-3">
               <Form.Group as={Col} controlId="donorFirstName">
                 <Form.Label>First Name</Form.Label>
@@ -201,10 +202,17 @@ export default function DonationForm(){
             </Row>
 
             <br></br>
-      
-            <Button variant="primary" type="submit">
+            <Row classname="mb-3">
+            <Form.Group as={Col} controlId="buttons">       
+            <Button variant="primary" type="submit" onClick={handleSubmit} >
               Submit
             </Button>
+            
+            <Button variant="secondary" type="back" onClick={() => history("/")}>
+              Back
+            </Button>
+            </Form.Group>
+            </Row>
           </Form>
           </div>
           
