@@ -19,16 +19,26 @@ async function helloUser(identifier){
   .then(res => res.json()) 
 }
 
+async function setGuest(){
+  const saveToken = '0';
+}
+
+
+
 function App() {
 
-const {token, setToken} = useToken();
+  const {token, setToken} = useToken();
+  //setToken('0');
 
-  if(!token) {
+
+  if(!token || token === "0" ) {
+    
+    // setGuest();
     // const data = JSON.parse(JSON.stringify(helloUser(0)))
     // const user = data[0].f_name
     return (
-
       <BrowserRouter>
+                {console.log("something")}
                 <Navbar bg="dark" expand="lg">
                   <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                   <Navbar.Collapse id="basic-navbar-nav">
@@ -61,7 +71,7 @@ const {token, setToken} = useToken();
             <div className="auth-inner">
               <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route exact path="/login" element={<Login setToken={setToken}/> } />
+                <Route exact path="/login" element={<Login setToken={setToken}/> } /*onClick={setToken("0")}*/ />
                 <Route exact path="/user" element={ <Navigate to="/login" />} />
                 <Route exact path="/signup" element={ <SignUp />} />
 
