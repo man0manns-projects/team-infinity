@@ -7,7 +7,7 @@ import './App.css';
 
 import {Home} from './Home';
 import {UserProfile} from './UserProfile';
-import {DonationForm} from './DonationForm';
+import DonationForm from './DonationForm';
 import { ViewFundraiserModal } from './ViewFundraiserModal';
 import {SignUp} from './SignUp';
 
@@ -30,15 +30,16 @@ function App() {
   const {token, setToken} = useToken();
   //setToken('0');
 
+  let userID = sessionStorage.getItem('token');
+  if(!userID || userID == "0" ) {
 
-  if(!token || token === "0" ) {
+    console.log(userID);
     
     // setGuest();
     // const data = JSON.parse(JSON.stringify(helloUser(0)))
     // const user = data[0].f_name
     return (
       <BrowserRouter>
-                {console.log("something")}
                 <Navbar bg="dark" expand="lg">
                   <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                   <Navbar.Collapse id="basic-navbar-nav">
