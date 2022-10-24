@@ -25,9 +25,10 @@ export default function Login({setToken}){
     }
 
     return (
+      <div className='login-cont'>
       <form onSubmit={handleSubmit}>
-        <h3>Sign In</h3>
-        <div className="mb-3">
+        <h2 className="mt-5 d-flex justify-content-center">Sign In</h2>
+        <div className="cont3">
           <label>Email address</label>
           <input
             type="email"
@@ -36,7 +37,7 @@ export default function Login({setToken}){
             onChange={e => setUserName(e.target.value)}
           />
         </div>
-        <div className="mb-3">
+        <div className="cont4">
           <label>Password</label>
           <input
             type="password"
@@ -45,6 +46,9 @@ export default function Login({setToken}){
             onChange={e => setPassword(e.target.value)}
           />
         </div>
+        <p className="forgot-password text-right">
+          Forgot <a href="#">password?</a>
+        </p>
         <div className="mb-3">
           <div className="custom-control custom-checkbox">
             <input
@@ -58,18 +62,17 @@ export default function Login({setToken}){
             </label> */}
           </div>
         </div>
-        <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+        <div className="sub-button">
+          <button type="submit" className="btn btn-success btn-lg btn-block">
             Submit
           </button>
         </div>
-        <p className="forgot-password text-left">
+        <p className="sign-up">
            <a href="#">Sign up</a>
         </p>
-        <p className="forgot-password text-right">
-          Forgot <a href="#">password?</a>
-        </p>
+
       </form>
+      </div>
     )
   }
 
