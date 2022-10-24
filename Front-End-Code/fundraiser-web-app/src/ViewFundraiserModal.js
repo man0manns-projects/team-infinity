@@ -101,10 +101,9 @@ export class ViewFundraiserModal extends Component{
                     Donate</Button>
                 </ButtonToolbar>
                 </div>
-   
+  
         </div>
         </main>
         )
     }
 }
-
