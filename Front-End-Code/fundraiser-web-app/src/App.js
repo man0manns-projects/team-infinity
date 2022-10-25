@@ -56,9 +56,6 @@ function App() {
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
                       Login
                   </NavLink>
-                  <NavLink  className="d-inline p-2 bg-dark text-white" to="/signup">
-                      Sign Up
-                  </NavLink>
                   <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                   </Nav>
                   </Navbar.Collapse>
@@ -71,12 +68,13 @@ function App() {
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login setToken={setToken}/> } /*onClick={setToken("0")}*/ />
                 <Route exact path="/user" element={ <Navigate to="/login" />} />
-                <Route exact path="/signup" element={ <SignUp />} />
 
 
                 {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
                 <Route exact path='/TEST-fundraiser' element={<ViewFundraiserModal />} />
+
                 <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
+                <Route exact path="/signup" element={ <SignUp />} />
 
               </Routes>
             </div>
