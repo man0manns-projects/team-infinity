@@ -56,7 +56,7 @@ export class ViewFundraiserModal extends Component{
             {info.map(info=>
             
             <div className='left'>
-            <h2 className="mt-5 d-flex justify-content-center">{info.title}</h2>
+            <h2 className=" d-flex justify-content-center">{info.title}</h2>
             <h3 className="mt-5 d-flex justify-content-center">Raised: {this.currencyFormat(info.amount_raised)}     Goal: {this.currencyFormat(info.goal)}</h3>
         
             <img src={logo} />
