@@ -25,7 +25,7 @@ export default function Login({setToken}){
     }
 
     return (
-      <div className='login-cont'>
+      <div className='p-1 login-cont'>
       <form onSubmit={handleSubmit}>
         <h2 className="mt-5 d-flex justify-content-center">Sign In</h2>
         <div className="cont3">
