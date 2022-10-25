@@ -95,9 +95,9 @@ export default function DonationForm(){
     };
 
         return (
-          <div>
-            <h2>Donating to: {currentFundraiserName}</h2>
-            <Form >
+          <div className='p-5 dono'>
+            <h2 className="mt-1 d-flex justify-content-center">Fundraiser: {currentFundraiserName}</h2>
+            <Form>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="donorFirstName">
                 <Form.Label>First Name</Form.Label>
@@ -203,18 +203,19 @@ export default function DonationForm(){
 
             <br></br>
             <Row classname="mb-3">
-            <Form.Group as={Col} controlId="buttons">       
-            <Button variant="primary" type="submit" onClick={handleSubmit} >
+            <Form.Group as={Col} controlId="buttons">  
+            <Button variant="secondary" type="back" onClick={() => history("/")}>
+              Back
+            </Button>     
+            <Button variant="success float-right" type="submit" onClick={handleSubmit} >
               Submit
             </Button>
             
-            <Button variant="secondary" type="back" onClick={() => history("/")}>
-              Back
-            </Button>
+            
             </Form.Group>
             </Row>
           </Form>
+
           </div>
-          
         );
 }

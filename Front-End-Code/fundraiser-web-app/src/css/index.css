@@ -67,11 +67,11 @@ padding-right: 20%;
   margin: auto;
 }
 
-/* sign-up page */
+/* Donation Form */
 
-.sign-up-cont{
-  height: 80vh;
-  width: 100vh;
+.dono{
+  max-height: max-content;
+  max-width: 80vh;
   margin: auto;
   margin-top: 5%;
   border-radius: 5%;
