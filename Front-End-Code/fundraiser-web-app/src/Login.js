@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 /* TEST USER ACCOUNT 
 Username: jeffbezos@amazon.com
@@ -22,11 +23,12 @@ export default function Login({setToken}){
       const data = JSON.parse(outputString);
       const token = data[0].user_id;
       setToken(token);
+      window.location.reload(false);
     }
 
     return (
       <div className='p-1 login-cont'>
-      <form onSubmit={handleSubmit}>
+      <form>
         <h2 className="mt-5 d-flex justify-content-center">Sign In</h2>
         <div className="cont3">
           <label>Email address</label>
@@ -63,12 +65,12 @@ export default function Login({setToken}){
           </div>
         </div>
         <div className="sub-button">
-          <button type="submit" className="btn btn-success btn-lg btn-block">
+          <button type="submit" className="btn btn-success btn-lg btn-block" onClick={handleSubmit}>
             Submit
           </button>
         </div>
         <p className="sign-up">
-           <a href="#">Sign up</a>
+        <Link to="/signup"><a>Sign up</a></Link>
         </p>
 
       </form>
