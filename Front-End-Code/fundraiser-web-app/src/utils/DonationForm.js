@@ -1,4 +1,22 @@
-import React, {useId} from 'react';
+/*  Louise Belcher
+    1601 26TH AVE 
+    BESSEMER 
+    AL 
+    3319
+
+    (815)252-2345
+    belcher@burgers.com
+    The real tragedy is that I don't have time to get nachos
+
+    30.45
+
+    Louise H Belcher
+    6011128563426587
+    394
+    0224
+ */
+
+import React from 'react';
 import {Form,Button, Col, Row, InputGroup, Accordion} from 'react-bootstrap';
 import { UsaStates } from 'usa-states';
 import mastercard from '../images/mastercard.png';
@@ -10,11 +28,6 @@ import { useState } from 'react'
 import { v4 as uuid } from 'uuid';
 import {useLocation, useNavigate} from 'react-router-dom';
 
-
-/* async function donationBasic(userID,fundID,donationAmount,paymentType,notes,streetAddress,city,zipcode, state, phone, emailAddress){
-  return 
-  .then(res => res.json())
-} */
 
 export default function DonationForm(){
 

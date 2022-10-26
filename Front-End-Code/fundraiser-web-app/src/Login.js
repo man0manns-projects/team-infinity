@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 /* TEST USER ACCOUNT 
-Username: jeffbezos@amazon.com
-Password: elizabethfundsmyyacht */
+Username: tina@burgers.com
+Password: hulutv22 */
 
 async function loginUser(email,password){
   return fetch('http://20.169.81.116:5199/api/Login?userEmail='+ email + '&password=' + password)

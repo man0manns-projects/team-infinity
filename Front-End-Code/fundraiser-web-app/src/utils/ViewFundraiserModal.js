@@ -35,8 +35,8 @@ export class ViewFundraiserModal extends Component{
 
     componentDidMount(){
         //this.refreshList(this.props.fundId);
-        this.refreshDonors("505");
-        this.getFundraiserInfo("505");
+        this.refreshDonors("512");
+        this.getFundraiserInfo("512");
     }
 
     currencyFormat(moneys) {
