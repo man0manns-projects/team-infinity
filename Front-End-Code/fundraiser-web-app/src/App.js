@@ -1,6 +1,7 @@
 import React from 'react'
 import {NavLink, BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import {Navbar,Nav, NavItem} from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './css/App.css';
@@ -53,7 +54,9 @@ function App() {
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
                       TEMP: Fundraiser Detail View
                   </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
+
+
+                  {/* <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
                       Login
                   </NavLink>
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
@@ -61,7 +64,22 @@ function App() {
                   </NavLink>
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/profile">
                     Temp: User Profile
-                </NavLink>
+                  </NavLink> */}
+
+
+                  <Dropdown>
+                    <Dropdown.Toggle variant="secondary" id="dropdown-button-dark-example1">
+                      User Account
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu variant="dark">
+                      <Dropdown.Item href="/login">Login</Dropdown.Item>
+                      <Dropdown.Item href="/signup"> Sign Up</Dropdown.Item>
+                      <Dropdown.Item href="/profile">User Profile</Dropdown.Item>
+
+                    </Dropdown.Menu>
+                  </Dropdown>
+
                   <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                   </Nav>
                   </Navbar.Collapse>

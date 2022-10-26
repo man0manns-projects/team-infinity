@@ -32,7 +32,7 @@ export default function UserProfile(){
         try{
 
           let res = await fetch('http://20.169.81.116:5199/api/user?userID='+ userID + '&emailAddress=' + userEmail + '&firstName=' + firstName + '&lastName=' + lastName + '&password=' + password + '&streetAddress=' + currentAddress + '&city=' + currentCity + '&zipcode=' + currentZip + '&country=' + currentState , {
-            method:"POST",
+            method:"GET",
           });
   
           if(res.status == 200){
