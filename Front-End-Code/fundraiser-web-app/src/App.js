@@ -6,7 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './css/App.css';
 
 import {Home} from './Home';
-import {UserProfile} from './UserProfile';
+import UserProfile from './UserProfile';
 import DonationForm from './utils/DonationForm';
 import { ViewFundraiserModal } from './utils/ViewFundraiserModal';
 import SignUp from './SignUp';
@@ -59,6 +59,9 @@ function App() {
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
                       Sign Up
                   </NavLink>
+                  <NavLink className="d-inline p-2 bg-dark text-white" to="/profile">
+                    Temp: User Profile
+                </NavLink>
                   <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                   </Nav>
                   </Navbar.Collapse>
@@ -78,6 +81,8 @@ function App() {
 
                 <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
                 <Route exact path="/signup" element={ <SignUp />} />
+                <Route exact path="/profile" element={ <UserProfile />} />
+
 
               </Routes>
             </div>
