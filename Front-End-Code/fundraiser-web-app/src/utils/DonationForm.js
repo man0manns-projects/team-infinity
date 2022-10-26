@@ -42,8 +42,8 @@ export default function DonationForm(){
       // const currentFundraiser = "505";
       const currentFundraiser = location.state.id;
       const currentFundraiserName = location.state.title;
-      console.log(currentFundraiserName);
-      console.log(currentFundraiser);
+      // console.log(currentFundraiserName);
+      // console.log(currentFundraiser);
       const transactionID = uuid();
       // const [currentFundraiser, setFundID] = useState();
       const [currentDonation, setDonation] = useState();

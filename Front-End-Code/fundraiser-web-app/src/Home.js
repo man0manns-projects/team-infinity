@@ -4,6 +4,8 @@ import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import {AddFundModal} from './utils/AddFundModal';
 import {EditFundModal} from './utils/EditFundModal';
+import {Link} from 'react-router-dom';
+import { ViewFundraiserModal } from './utils/ViewFundraiserModal';
 
 
 
@@ -39,6 +41,8 @@ export class Home extends Component{
             })
         }
     }
+
+
     render(){
         const {funds, fundraiser_id,title}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
@@ -60,11 +64,13 @@ export class Home extends Component{
                                 <td>{fund.title}</td>
                                 <td>
 <ButtonToolbar>
-    <Button className="mr-2" variant="info"
-    onClick={()=>this.setState({editModalShow:true,
-        fundraiser_id:funds.fundraiser_id,title:funds.title})}>
-            Edit
+    {/* /* onClick={()=>this.setState({editModalShow:true,
+        fundraiser_id:funds.fundraiser_id,title:funds.title})} */}
+    <Link to={{pathname: "/TEST-fundraiser", state : fund.fundraiser_id}}>
+    <Button className="mr-2" variant="info">
+            Details
         </Button>
+    </Link>
 
         <Button className="mr-2" variant="danger"
     onClick={()=>this.deleteFundraiser(funds.fundraiser_id)}>
