@@ -9,7 +9,7 @@ import {Home} from './Home';
 import {UserProfile} from './UserProfile';
 import DonationForm from './utils/DonationForm';
 import { ViewFundraiserModal } from './utils/ViewFundraiserModal';
-import {SignUp} from './SignUp';
+import SignUp from './SignUp';
 
 import Login from './Login';
 import useToken from './utils/useToken';
@@ -55,6 +55,9 @@ function App() {
                   </NavLink>
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
                       Login
+                  </NavLink>
+                  <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
+                      Sign Up
                   </NavLink>
                   <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                   </Nav>
