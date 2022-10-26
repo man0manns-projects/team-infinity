@@ -1,112 +1,83 @@
-import React from 'react';
-import Userfront from "@userfront/core";
+import React, {useId} from 'react';
+import {Form,Button, Col, Row, InputGroup, Accordion} from 'react-bootstrap';
+import { useState } from 'react';
 
-// Init Userfront Core
-Userfront.init(" ");
+//  async function donationBasic(userID,fundID,donationAmount,paymentType,notes,streetAddress,city,zipcode, state, phone, emailAddress){
+//   return 
+//   .then(res => res.json())
+// }
 
-export class SignUp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        firstName: "",
-        lastName: "",
-      email: "",
-      password: "",
-      passwordVerify: "",
+export default function SignUp(){
+
+      const userID = sessionStorage.getItem('token');
+
+      // const [currentFundraiser, setFundID] = useState();
+      const [userEmail, setEmail] = useState();
+      const [firstName, setFname] = useState();
+      const [lastName, setLname] = useState();
+      const [password, setPassword] = useState();
+
+
+
+      let handleSubmit = async (e) => {
+        e.preventDefault();
+        try{
+
+          let res = await fetch('http://20.169.81.116:5199/api/user?userID='+ userID + '&emailAddress=' + userEmail + '&firstName=' + firstName + '&lastName=' + lastName + '&password=' + password, {
+            method:"POST",
+          });
+  
+          if(res.status == 200){
+          alert("Submitted successfully");
+          window.location='/';
+        } else{
+          alert("Some error occurred with form submission")
+        }
+      } catch (err) {
+        console.log(err);
+      }
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this); 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+        return (
+          <div className='p-5 dono'>
+            <h2 className="mt-1 d-flex justify-content-center">Sign Up</h2>
+            <Form>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="donorFirstName">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="fname" placeholder="Enter first name" value={firstName} onChange={(e) => setFname(e.target.value)}/>
+              </Form.Group>
+      
+              <Form.Group as={Col} controlId="donorLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control type="lname" placeholder="Enter last name" value={lastName} onChange={(e) => setLname(e.target.value)}/>
+              </Form.Group>
+            </Row>
+      
+            
+            <Row classname="mb-3">
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="address@website.com" value={userEmail} onChange={(e) => setEmail(e.target.value)}/>
+              </Form.Group>
+            </Row>
 
-  // Whenever an input changes value, change the corresponding state variable
-  handleInputChange(event) {
-    event.preventDefault();
-    const target = event.target;
-    this.setState({
-      [target.name]: target.value,
-    });
-  }
+            <Row classname="mb-3">
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              </Form.Group>
+            </Row>
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    // Call Userfront.signup()
-    Userfront.signup({
-      method: "password",
-      email: this.state.email,
-      password: this.state.password,
-      data: {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-      },
-    });
-  }
-
-  render() {
-    return (   
-      <div className='mb-3'>
-        <form onSubmit={this.handleSubmit}>
-
-        <label>
-            First Name
-            <input
-              className="form-control"
-              name="firstName"
-              type="text"
-              value={this.state.firstName}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            Last Name
-            <input
-              className="form-control"
-              name="lastName"
-              type="text"
-              value={this.state.lastName}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            Email address
-            <input
-              className="form-control"
-              name="email"
-              type="email"
-              placeholder="Your Email"
-              value={this.state.email}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          
-          <label>
-            Password
-            <input
-              className="form-control"
-              name="password"
-              type="password"
-              placeholder="Enter password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            Verify password
-            <input
-              className="form-control"
-              name="passwordVerify"
-              type="password"
-              placeholder="Re-enter password"
-              value={this.state.passwordVerify}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <div className="d-grid">
-          <button variant="outline-success" className="btn btn-success" type="submit">Sign up</button>
+            
+            <br></br>
+            <Row classname="mb-3">
+            <Button variant="success float-right" type="submit" onClick={handleSubmit} >
+              Sign Up
+            </Button>
+            
+            </Row>
+            </Form>
           </div>
-        </form>
-      </div>
-    );
-  }
-}
+          )
+          }
