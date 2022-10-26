@@ -1,87 +1,98 @@
 import React,{Component} from 'react';
-// import Card from 'react-bootstrap/Card';
-// import Col from 'react-bootstrap/Col';
-// import Row from 'react-bootstrap/Row';
 import {Table} from 'react-bootstrap';
 
 import {Button,ButtonToolbar} from 'react-bootstrap';
-import { AddFundsModal } from './utils/AddFundsModal';
+import {AddFundModal} from './utils/AddFundModal';
+import {EditFundModal} from './utils/EditFundModal';
+
+
 
 export class Home extends Component{
 
     constructor(props){
-      super(props);
-      this.state={funds:[], addModalShow:false}
+        super(props);
+        this.state={funds:[], addModalShow:false, editModalShow:false}
     }
 
     refreshList(){
-      fetch(process.env.REACT_APP_API+'fundraiser')
-      .then(response=>response.json())
-      .then(data=>{
-        this.setState({funds:data});
-      })
+        fetch(process.env.REACT_APP_API)
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({funds:data});
+        });
     }
 
     componentDidMount(){
-      this.refreshList();
+        this.refreshList();
     }
-    
+
     componentDidUpdate(){
-      this.refreshList();
+        this.refreshList();
     }
 
+    deleteFundraiser(fundraiser_id){
+        if(window.confirm('Are you sure?')){
+            fetch(process.env.REACT_APP_API+fundraiser_id,{
+                method:'DELETE',
+                header:{'Accept':'application/json',
+            'Content-Type':'application/json'}
+            })
+        }
+    }
     render(){
-        const {funds}=this.state;
-        let addModalClose=()=>this.setState({addModalShow:false})
+        const {funds, fundraiser_id,title}=this.state;
+        let addModalClose=()=>this.setState({addModalShow:false});
+        let editModalClose=()=>this.setState({editModalShow:false});
         return(
-          <div>
-            
-            
+            <div class="dashboard">
+                <Table className="mt-4" striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                            <th>FundraiserId</th>
+                            <th>Name</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {funds.map(fund=>
+                            <tr key={fund.fundraiser_id}>
+                                <td>{fund.fundraiser_id}</td>
+                                <td>{fund.title}</td>
+                                <td>
+<ButtonToolbar>
+    <Button className="mr-2" variant="info"
+    onClick={()=>this.setState({editModalShow:true,
+        fundraiser_id:funds.fundraiser_id,title:funds.title})}>
+            Edit
+        </Button>
 
-            <ButtonToolbar>
-              <Button variant="primary"
-              onClick={()=>this.setState({addModalShow:true})}>
-                Start New Fundraiser
-              </Button>
-              <AddFundsModal show={this.state.addModalShow}
-              onHide={addModalClose}></AddFundsModal>
-            </ButtonToolbar>
-            <Table className="mt-4" striped bordered hover size="sm">
-              <thead>
-                <tr>
-                  <th>FundraiserId</th>
-                  <th>FundraiserName</th>
-                  <th>Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                {funds.map(fund=>
-                  <tr key={fund.FundraiserId}>
-                    <td>{fund.FundraiserId}</td>
-                    <td>{fund.FundraiserName}</td>
-                    <td>Edit / Delete</td>
-                  </tr>
-                  )}
-              </tbody>
-            </Table>
-          </div>
-          // <Row xs={1} md={2} className="g-4">
-          //   {Array.from({ length: 4 }).map((_, idx) => (
-          //     <Col>
-          //       <Card>
-          //       <Card.Img variant="top" src="holder.js/100px160" />
-          //       <Card.Body>
-          //         <Card.Title>Card title</Card.Title>
-          //         <Card.Text>
-          //           This is a longer card with supporting text below as a natural
-          //           lead-in to additional content. This content is a little bit
-          //           longer.
-          //         </Card.Text>
-          //       </Card.Body>
-          //       </Card>
-          //     </Col>
-          //   ))}
-          // </Row>
+        <Button className="mr-2" variant="danger"
+    onClick={()=>this.deleteFundraiser(funds.fundraiser_id)}>
+            Delete
+        </Button>
+
+        <EditFundModal show={this.state.editModalShow}
+        onHide={editModalClose}
+        fundraiser_id={fundraiser_id}
+        title={title}/>
+</ButtonToolbar>
+
+                                </td>
+
+                            </tr>)}
+                    </tbody>
+
+                </Table>
+
+                <ButtonToolbar>
+                    <Button variant='primary'
+                    onClick={()=>this.setState({addModalShow:true})}>
+                    Create New Fundraiser</Button>
+
+                    <AddFundModal show={this.state.addModalShow}
+                    onHide={addModalClose}/>
+                </ButtonToolbar>
+            </div>
         )
     }
 }
