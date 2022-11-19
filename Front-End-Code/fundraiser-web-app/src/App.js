@@ -28,6 +28,7 @@ async function setGuest(){
 
 function App() {
 
+  //to logout user
   const logout = () => {
     sessionStorage.clear()
   }
