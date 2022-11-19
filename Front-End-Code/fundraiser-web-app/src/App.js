@@ -9,7 +9,7 @@ import './css/App.css';
 import {Home} from './Home';
 import UserProfile from './UserProfile';
 import DonationForm from './utils/DonationForm';
-import { ViewFundraiserModal } from './utils/ViewFundraiserModal';
+import { ViewFundraiser } from './utils/ViewFundraiserModal';
 import SignUp from './SignUp';
 
 import Login from './Login';
@@ -28,17 +28,15 @@ async function setGuest(){
 
 function App() {
 
+  const logout = () => {
+    sessionStorage.clear()
+  }
+
   const {token, setToken} = useToken();
-  //setToken('0');
+ 
 
   let userID = sessionStorage.getItem('token');
   if(!userID || userID == "0" ) {
-
-    console.log(userID);
-    
-    // setGuest();
-    // const data = JSON.parse(JSON.stringify(helloUser(0)))
-    // const user = data[0].f_name
     return (
       <BrowserRouter>
                 <Navbar bg="dark" expand="lg">
@@ -51,36 +49,18 @@ function App() {
                   <NavLink className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
                       Fundraisers
                   </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
-                      TEMP: Fundraiser Detail View
-                  </NavLink>
-
-
-                  {/* <NavLink className="d-inline p-2 bg-dark text-white" to="/login">
-                      Login
-                  </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
-                      Sign Up
-                  </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/profile">
-                    Temp: User Profile
-                  </NavLink> */}
-
 
                   <Dropdown>
                     <Dropdown.Toggle variant="secondary" id="dropdown-button-dark-example1">
-                      User Account
+                      Hello test!
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu variant="dark">
                       <Dropdown.Item href="/login">Login</Dropdown.Item>
                       <Dropdown.Item href="/signup"> Sign Up</Dropdown.Item>
-                      <Dropdown.Item href="/profile">User Profile</Dropdown.Item>
 
                     </Dropdown.Menu>
                   </Dropdown>
-
-                  <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
                   </Nav>
                   </Navbar.Collapse>
               </Navbar>
@@ -90,12 +70,12 @@ function App() {
             <div className="auth-inner">
               <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route exact path="/login" element={<Login setToken={setToken}/> } /*onClick={setToken("0")}*/ />
+                <Route exact path="/login" element={<Login setToken={setToken}/> } />
                 <Route exact path="/user" element={ <Navigate to="/login" />} />
 
 
                 {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
-                <Route exact path='/TEST-fundraiser' element={<ViewFundraiserModal />} />
+                <Route exact path='/TEST-fundraiser/:id' element={<ViewFundraiser />} />
 
                 <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
                 <Route exact path="/signup" element={ <SignUp />} />
@@ -110,8 +90,7 @@ function App() {
     ) 
   } else {
 //if logged in this is rendered
-/* const data = JSON.parse(JSON.stringify(helloUser(token)));
-const user = data[0].f_name; */
+
   return (
 
     <BrowserRouter>
@@ -125,13 +104,17 @@ const user = data[0].f_name; */
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
                     Fundraisers
                 </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/User">
-                    User Profile
-                </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/TEST-fundraiser">
-                      TEMP: Fundraiser Detail View
-                  </NavLink>
-                <NavItem className="d-inline p-2 bg-dark text-white">Hi test!</NavItem>
+                <Dropdown>
+                    <Dropdown.Toggle variant="secondary" id="dropdown-button-dark-example1">
+                      Hello test!
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu variant="dark">
+                      <Dropdown.Item href="/profile">User Profile</Dropdown.Item>
+                      <Dropdown.Item href="/" onClickCapture={logout}>Logout</Dropdown.Item>
+
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -145,7 +128,7 @@ const user = data[0].f_name; */
               <Route exact path="/login" element={ <Navigate to="/user" /> }/>
 
               {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
-              <Route exact path='/TEST-fundraiser' element={<ViewFundraiserModal />} />
+              <Route exact path='/TEST-fundraiser/:id' element={<ViewFundraiser />} />
               <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
 
             </Routes>

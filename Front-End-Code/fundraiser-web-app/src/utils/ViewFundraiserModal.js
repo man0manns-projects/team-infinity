@@ -2,8 +2,13 @@ import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import '../css/fund.css';
+
+
+export function ViewFundraiser(){
+    return <ViewFundraiserModal params={useParams()}/>
+}
 
 export class ViewFundraiserModal extends Component{
     
@@ -12,6 +17,7 @@ export class ViewFundraiserModal extends Component{
         this.state={donors:[],info:[]}
 
     }
+
     //define API methods as functions 
     refreshDonors(filter){
         fetch('http://20.169.81.116:5199/api/Fundraiser/Donors?fundraiserID='+ filter)
@@ -30,21 +36,14 @@ export class ViewFundraiserModal extends Component{
     }
 
     componentDidMount(){
-        const {history, location} = this.props;
-        //this.refreshList(this.props.fundId);
-        this.refreshDonors("512");
-        this.getFundraiserInfo("512");
-        /* this.refreshDonors(this.props.location.state.id);
-        this.getFundraiserInfo(this.props.location.state.id); */
-        console.log({location});
-
+        this.getFundraiserInfo(this.props.params.id);
+        this.refreshDonors(this.props.params.id);
     }
 
     currencyFormat(moneys) {
         let num = Number(moneys,10);
         return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     };
-
 
 
     render(){
@@ -105,3 +104,4 @@ export class ViewFundraiserModal extends Component{
         )
     }
 }
+

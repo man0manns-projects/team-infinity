@@ -5,7 +5,6 @@ import {Button,ButtonToolbar} from 'react-bootstrap';
 import {AddFundModal} from './utils/AddFundModal';
 import {EditFundModal} from './utils/EditFundModal';
 import {Link} from 'react-router-dom';
-import { ViewFundraiserModal } from './utils/ViewFundraiserModal';
 
 
 
@@ -42,6 +41,10 @@ export class Home extends Component{
         }
     }
 
+    debugfunction(thingtoprint){
+        console.log(thingtoprint);
+    }
+
 
     render(){
         const {funds, fundraiser_id,title}=this.state;
@@ -64,11 +67,9 @@ export class Home extends Component{
                                 <td>{fund.title}</td>
                                 <td>
 <ButtonToolbar>
-    {/* /* onClick={()=>this.setState({editModalShow:true,
-        fundraiser_id:funds.fundraiser_id,title:funds.title})} */}
-    <Link to={{pathname: "/TEST-fundraiser", state : fund.fundraiser_id}}>
-    <Button className="mr-2" variant="info">
-            Details
+    <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
+        <Button className="mr-2" variant="info">
+        Details
         </Button>
     </Link>
 
@@ -77,15 +78,19 @@ export class Home extends Component{
             Delete
         </Button>
 
+{/*         <Button className="mr-2" variant="info" onClick={()=>this.setState({addModalShow:true})}>
+    Details </Button>
         <EditFundModal show={this.state.editModalShow}
         onHide={editModalClose}
         fundraiser_id={fundraiser_id}
-        title={title}/>
+        title={title}/> */}
+
 </ButtonToolbar>
 
                                 </td>
 
-                            </tr>)}
+                            </tr>)
+                            }
                     </tbody>
 
                 </Table>

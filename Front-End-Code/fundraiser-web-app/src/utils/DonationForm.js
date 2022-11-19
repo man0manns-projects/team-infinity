@@ -4,9 +4,8 @@
     AL 
     3319
 
-    (815)252-2345
+    8152522345
     belcher@burgers.com
-    The real tragedy is that I don't have time to get nachos
 
     30.45
 
