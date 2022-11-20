@@ -5,6 +5,7 @@ import {Button,ButtonToolbar} from 'react-bootstrap';
 import {AddFundModal} from './utils/AddFundModal';
 import {EditFundModal} from './utils/EditFundModal';
 import {Link} from 'react-router-dom';
+import {TestAddFundModal} from './utils/TestAddFundModal';
 
 
 
@@ -99,9 +100,10 @@ export class Home extends Component{
                     <Button variant='primary'
                     onClick={()=>this.setState({addModalShow:true})}>
                     Create New Fundraiser</Button>
+                <TestAddFundModal show={this.state.addModalShow} onHide={addModalClose}/>
 
-                    <AddFundModal show={this.state.addModalShow}
-                    onHide={addModalClose}/>
+{/*                     <AddFundModal show={this.state.addModalShow}
+                    onHide={addModalClose}/> */}
                 </ButtonToolbar>
             </div>
         )
