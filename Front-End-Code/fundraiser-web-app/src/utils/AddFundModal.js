@@ -5,7 +5,7 @@ import {Modal,Button, Row, Col, Form } from 'react-bootstrap';
 export class AddFundModal extends Component{
     constructor(props){
     super(props);
-    this.state={fundraiserName : null, fundraiserDesc : null, initAmount : null, goal : null, imageData : null}
+    this.state={fundraiserName : null, fundraiserDesc : null, initAmount : 0, goal : null, imageData : null}
     }
     setFundraiserName = (e) => {
         this.setState({fundraiserName : e.target.value})
@@ -81,29 +81,34 @@ centered
             <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="title">
-                        <Form.Label>Fundraiser Name</Form.Label>
+                        <Form.Label>Title</Form.Label>
                         <Form.Control type="text" name="FundraiserName" required 
-                        placeholder="FundraiserName" value={this.state.fundraiserName} onChange={this.setFundraiserName}/>
+                        placeholder="Title of your fundraiser" value={this.state.fundraiserName} onChange={this.setFundraiserName}/>
                     </Form.Group>
+                    <br></br>
                     <Form.Group controlId="title">
-                        <Form.Label>Fundraiser Description</Form.Label>
+                        <Form.Label>Description</Form.Label>
                         <Form.Control type="text" name="FundraiserDescription" 
-                        placeholder="Fundraiser description" value={this.state.fundraiserDesc} onChange={this.setFundraiserDesc}/>
+                        placeholder="What is the purpose of your fundraiser?" value={this.state.fundraiserDesc} onChange={this.setFundraiserDesc}/>
                     </Form.Group>
+                    <br></br>
                     <Form.Group controlId="title">
-                        <Form.Label>Fundraiser Init Amount</Form.Label>
-                        <Form.Control type="text" name="FundraiserDescription" 
-                        placeholder="Fundraiser description" value={this.state.initAmount} onChange={this.setinitAmount}/>
+                        <Form.Label>Initial Amount</Form.Label>
+                        <Form.Control type="text" name="FundraiserInitAmount" 
+                        placeholder="Any donations already made?" value={this.state.initAmount} onChange={this.setinitAmount} defaultValue={0}/>
                     </Form.Group>
+                    <br></br>
                     <Form.Group controlId="title">
-                        <Form.Label>Fundraiser Goal</Form.Label>
-                        <Form.Control type="text" name="FundraiserDescription" 
-                        placeholder="Fundraiser description" value={this.state.goal} onChange={this.setgoal}/>
+                        <Form.Label>Goal</Form.Label>
+                        <Form.Control type="text" name="FundraiserGoal" required
+                        placeholder="Monetary goal for this fundraiser" value={this.state.goal} onChange={this.setgoal}/>
                     </Form.Group>
+                    <br></br>
                    <Form.Group controlId="title">
-                        <Form.Label>Fundraiser Image</Form.Label>
-                        <Form.Control type="file" name="FundraiserDescription" onChange={this.setimageData}/>
+                        <Form.Label>Image or Logo</Form.Label>
+                        <Form.Control type="file" name="FundraiserImage" onChange={this.setimageData} required/>
                     </Form.Group>
+                    <br></br>
                     <Form.Group>
                         <Button variant="primary" type="submit">
                             Add Fundraiser
@@ -115,7 +120,7 @@ centered
     </Modal.Body>
     
     <Modal.Footer>
-        <Button variant="danger" onClick={this.props.onHide}>Close</Button>
+        <Button variant="danger" onClick={this.props.onHide}>Cancel</Button>
     </Modal.Footer>
 
 </Modal>
