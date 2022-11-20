@@ -2,7 +2,7 @@ import React from 'react';
 import {Component, useState} from 'react';
 import {Modal,Button, Row, Col, Form } from 'react-bootstrap';
 
-export class TestAddFundModal extends Component{
+export class AddFundModal extends Component{
     constructor(props){
     super(props);
     this.state={fundraiserName : null, fundraiserDesc : null, initAmount : null, goal : null, imageData : null}

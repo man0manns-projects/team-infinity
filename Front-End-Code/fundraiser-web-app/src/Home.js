@@ -2,10 +2,9 @@ import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
 
 import {Button,ButtonToolbar} from 'react-bootstrap';
-import {AddFundModal} from './utils/AddFundModal';
 import {EditFundModal} from './utils/EditFundModal';
 import {Link} from 'react-router-dom';
-import {TestAddFundModal} from './utils/TestAddFundModal';
+import {AddFundModal} from './utils/AddFundModal';
 
 
 
@@ -13,25 +12,37 @@ export class Home extends Component{
 
     constructor(props){
         super(props);
-        this.state={funds:[], addModalShow:false, editModalShow:false}
+        this.state={userfunds:[], addModalShow:false, editModalShow:false, otherfunds:[]}
     }
 
-    refreshList(){
-        fetch(process.env.REACT_APP_API)
-        .then(response=>response.json())
-        .then(data=>{
-            this.setState({funds:data});
-        });
+    refreshUserList(){
+        const userID = sessionStorage.getItem('token');
+
+            fetch(process.env.REACT_APP_API + 'Dashboard/User?userID=' + userID)
+            .then(response=>response.json())
+            .then(data=>{
+                this.setState({userfunds:data});
+            });
+    }
+
+    refreshOtherList(){
+        const userID = sessionStorage.getItem('token');
+
+            fetch(process.env.REACT_APP_API + 'Dashboard?userID=' + userID)
+            .then(response=>response.json())
+            .then(data=>{
+                this.setState({userfunds:data});
+            });
     }
 
     componentDidMount(){
-        this.refreshList();
+        this.refreshUserList();
     }
 
-    componentDidUpdate(){
+/*     componentDidUpdate(){
         this.refreshList();
-    }
-
+    } */
+/* 
     deleteFundraiser(fundraiser_id){
         if(window.confirm('Are you sure?')){
             fetch(process.env.REACT_APP_API+fundraiser_id,{
@@ -41,18 +52,17 @@ export class Home extends Component{
             })
         }
     }
-
-    debugfunction(thingtoprint){
-        console.log(thingtoprint);
-    }
+ */
 
 
     render(){
-        const {funds, fundraiser_id,title}=this.state;
+        const {userfunds, fundraiser_id,title}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
         let editModalClose=()=>this.setState({editModalShow:false});
         return(
+            <div>
             <div class="dashboard">
+                <h2>User Fundraisers</h2>
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
@@ -62,7 +72,7 @@ export class Home extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {funds.map(fund=>
+                        {userfunds.map(fund=>
                             <tr key={fund.fundraiser_id}>
                                 <td>{fund.fundraiser_id}</td>
                                 <td>{fund.title}</td>
@@ -75,16 +85,9 @@ export class Home extends Component{
     </Link>
 
         <Button className="mr-2" variant="danger"
-    onClick={()=>this.deleteFundraiser(funds.fundraiser_id)}>
+    onClick={()=>this.deleteFundraiser(userfunds.fundraiser_id)}>
             Delete
         </Button>
-
-{/*         <Button className="mr-2" variant="info" onClick={()=>this.setState({addModalShow:true})}>
-    Details </Button>
-        <EditFundModal show={this.state.editModalShow}
-        onHide={editModalClose}
-        fundraiser_id={fundraiser_id}
-        title={title}/> */}
 
 </ButtonToolbar>
 
@@ -100,12 +103,52 @@ export class Home extends Component{
                     <Button variant='primary'
                     onClick={()=>this.setState({addModalShow:true})}>
                     Create New Fundraiser</Button>
-                <TestAddFundModal show={this.state.addModalShow} onHide={addModalClose}/>
-
-{/*                     <AddFundModal show={this.state.addModalShow}
-                    onHide={addModalClose}/> */}
+                <AddFundModal show={this.state.addModalShow} onHide={addModalClose}/>
                 </ButtonToolbar>
             </div>
+
+
+<div class="dashboard">
+    <h2>Other Fundraisers</h2>
+                <Table className="mt-4" striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                            <th>FundraiserId</th>
+                            <th>Name</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userfunds.map(fund=>
+                            <tr key={fund.fundraiser_id}>
+                                <td>{fund.fundraiser_id}</td>
+                                <td>{fund.title}</td>
+                                <td>
+<ButtonToolbar>
+    <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
+        <Button className="mr-2" variant="info">
+        Details
+        </Button>
+    </Link>
+
+        <Button className="mr-2" variant="danger"
+    onClick={()=>this.deleteFundraiser(userfunds.fundraiser_id)}>
+            Delete
+        </Button>
+
+</ButtonToolbar>
+
+                                </td>
+
+                            </tr>)
+                            }
+                    </tbody>
+
+                </Table>
+</div>
+</div>
+
+            
         )
     }
 }
