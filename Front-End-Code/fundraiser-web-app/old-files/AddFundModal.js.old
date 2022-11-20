@@ -1,0 +1,95 @@
+import React from 'react';
+import {Component, useState} from 'react';
+import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
+
+export function AddFundModal({ show }) {
+/*     constructor(props) {
+        super(props);
+        this.handleSubmit=this.handleSubmit.bind(this);
+    } */
+
+    const userID = sessionStorage.getItem('token');
+    const [fundraiserName, setFundraiserName] = useState();
+    const [fundraiserDescription, setFundraiserDescription] = useState();
+    const [initAmount, setinitAmount] = useState();
+    const [goal, setgoal] = useState();
+    const [imageData, setimageData] = useState();
+
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        fetch(process.env.REACT_APP_API + 'Dashboard?userID='+ userID + '&fundraiserName=' + fundraiserName + '&fundraiserDescription=' + fundraiserDescription + '&initAmount=' + initAmount + '&goal=' + goal,{
+            method:'POST',
+            body:(imageData)
+        })
+        .then(res=>res.json())
+        .then((result)=>{
+            alert(result);
+        },
+        (error)=>{
+            alert('Failed');
+        })
+    }
+    return (
+            <div className="container">
+
+<Modal isOpen={show}
+{...this.props}
+size="lg"
+aria-labelledby="contained-modal-title-vcenter"
+centered
+>
+    <Modal.Header clooseButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+            Add Fundraiser
+        </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+
+        <Row>
+            <Col sm={6}>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="title">
+                        <Form.Label>Fundraiser Name</Form.Label>
+                        <Form.Control type="text" name="FundraiserName" required 
+                        placeholder="FundraiserName" value={fundraiserName} onChange={(e) => setFundraiserName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group controlId="title">
+                        <Form.Label>Fundraiser Description</Form.Label>
+                        <Form.Control type="text" name="FundraiserDescription" 
+                        placeholder="Fundraiser description" value={fundraiserDescription} onChange={(e) => setFundraiserDescription(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group controlId="title">
+                        <Form.Label>Fundraiser Init Amount</Form.Label>
+                        <Form.Control type="text" name="FundraiserDescription" 
+                        placeholder="Fundraiser description" value={initAmount} onChange={(e) => setinitAmount(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group controlId="title">
+                        <Form.Label>Fundraiser Goal</Form.Label>
+                        <Form.Control type="text" name="FundraiserDescription" 
+                        placeholder="Fundraiser description" value={goal} onChange={(e) => setgoal(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group controlId="title">
+                        <Form.Label>Fundraiser Image</Form.Label>
+                        <Form.Control type="file" name="FundraiserDescription" 
+                        placeholder="Fundraiser description" value={goal} onChange={(e) => setgoal(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Button variant="primary" type="submit">
+                            Add Fundraiser
+                        </Button>
+                    </Form.Group>
+                </Form>
+            </Col>
+        </Row>
+    </Modal.Body>
+    
+    <Modal.Footer>
+        <Button variant="danger" onClick={this.props.onHide}>Close</Button>
+    </Modal.Footer>
+
+</Modal>
+
+            </div>
+        )
+    }
+

@@ -31,9 +31,6 @@ export class ViewFundraiserModal extends Component{
         fetch('http://20.169.81.116:5199/api/Fundraiser?fundraiserID='+ filter)
         .then(response=>response.json())
         .then(data=>{
-    /*         const thing1 = JSON.stringify(data);
-            const thing2 = JSON.parse(thing1);
-            const thing3 = thing2[0].fundraiser_id; */
             const dbimagedata = JSON.parse(JSON.stringify(data))[0].image;
             var base64Flag = 'data:image/jpeg;base64,';
             this.setState({img: base64Flag + dbimagedata}); 
