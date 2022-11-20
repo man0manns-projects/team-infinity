@@ -103,7 +103,7 @@ namespace WebAPI2.Controllers
         }
 
         [HttpPost]
-        public JsonResult NewFundraiser(int userID, string fundraiserName, string fundraiserDescription, int initAmount, float goal)
+        public JsonResult NewFundraiser(int userID, string fundraiserName, string fundraiserDescription, int initAmount, float goal, byte[] image)
         {
             //TODO: Add file upload
             //var imageDataByteArray = Convert.FromBase64String(model.ImageData);
@@ -111,7 +111,7 @@ namespace WebAPI2.Controllers
             //imageDataStream.Position = 0;
 
             string query = @"
-                    INSERT INTO dbo.fundraisers (user_id, title, txt_description, amount_raised, img_url, goal) VALUES (@userID, @title, @description, @amount, NULL, @goal)";
+                    INSERT INTO dbo.fundraisers (user_id, title, txt_description, amount_raised, image , goal) VALUES (@userID, @title, @description, @amount, @image , @goal)";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
@@ -120,17 +120,19 @@ namespace WebAPI2.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    SqlParameter[] param = new SqlParameter[5];
+                    SqlParameter[] param = new SqlParameter[6];
                     param[0] = new SqlParameter("@userID", userID);
                     param[1] = new SqlParameter("@title", fundraiserName);
                     param[2] = new SqlParameter("@description", fundraiserDescription);
                     param[3] = new SqlParameter("@amount", initAmount);
-                    param[4] = new SqlParameter("@goal", goal);
+                    param[4] = new SqlParameter("@image", image);
+                    param[5] = new SqlParameter("@goal", goal);
                     myCommand.Parameters.Add(param[0]);
                     myCommand.Parameters.Add(param[1]);
                     myCommand.Parameters.Add(param[2]);
                     myCommand.Parameters.Add(param[3]);
                     myCommand.Parameters.Add(param[4]);
+                    myCommand.Parameters.Add(param[5]);
                     //TODO: Integrate with ReactJS variables
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
