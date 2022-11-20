@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
-import {Button,ButtonToolbar} from 'react-bootstrap';
+import {Button,ButtonToolbar, Image} from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import {Link, useParams} from 'react-router-dom';
 import '../css/fund.css';
@@ -14,9 +14,9 @@ export class ViewFundraiserModal extends Component{
     
    constructor(props){
         super(props);
-        this.state={donors:[],info:[]}
-
+        this.state={donors:[],info:[],img:''}
     }
+
 
     //define API methods as functions 
     refreshDonors(filter){
@@ -31,8 +31,16 @@ export class ViewFundraiserModal extends Component{
         fetch('http://20.169.81.116:5199/api/Fundraiser?fundraiserID='+ filter)
         .then(response=>response.json())
         .then(data=>{
+    /*         const thing1 = JSON.stringify(data);
+            const thing2 = JSON.parse(thing1);
+            const thing3 = thing2[0].fundraiser_id; */
+            const dbimagedata = JSON.parse(JSON.stringify(data))[0].image;
+            var base64Flag = 'data:image/jpeg;base64,';
+            this.setState({img: base64Flag + dbimagedata}); 
             this.setState({info:data})
         });
+        
+        
     }
 
     componentDidMount(){
@@ -49,8 +57,11 @@ export class ViewFundraiserModal extends Component{
     render(){
         const {donors}=this.state;
         const {info}=this.state;
+        const {img}=this.state;
+        
         const logo = require('../images/fund.jpg');
         return(
+            
             <main>
 
             {info.map(info=>
@@ -59,19 +70,20 @@ export class ViewFundraiserModal extends Component{
             <h2 className=" d-flex justify-content-center">{info.title}</h2>
             <h3 className="mt-5 d-flex justify-content-center">Raised: {this.currencyFormat(info.amount_raised)}     Goal: {this.currencyFormat(info.goal)}</h3>
         
-            <img src={logo} />
+            <Image src={img} alt='The fundraiser image' width={400} height={400}  rounded/>
+            {/* <img src={logo}/> */}
             
             
             <ProgressBar max={info.goal}>
             <ProgressBar variant="success" now={info.amount_raised} label={this.currencyFormat(info.amount_raised)} key={1}/>
-            <ProgressBar variant="NOT_THERE" now={info.goal} label={this.currencyFormat(info.goal)} key={2}/>
+            <ProgressBar variant="NOT_THERE" now={info.goal+100} label={this.currencyFormat(info.goal)} key={2}/>
             </ProgressBar>
             <p className="mt-4 d-flex justify-content-left">Description: {info.txt_description}</p>
       </div>
 
 )}
 
-            <div className='right'>
+            <div className='right'> 
                 <Table className="table-responsive-sm">
                 <thead>
                         <tr>
