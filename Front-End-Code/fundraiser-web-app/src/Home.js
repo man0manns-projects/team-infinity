@@ -72,7 +72,7 @@ export class Home extends Component{
                 <h2>User Fundraisers</h2>
                 <CardGroup style={{width: '100%'}}>
                 {userfunds.map(fund =>
-                <Card style={{width: '18rem'}}>
+                <Card style={{width: '18rem', height: '20rem'}}>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
@@ -84,6 +84,7 @@ export class Home extends Component{
                 </Card>
                 )}
                 </CardGroup>
+                <br></br>
              <ButtonToolbar>
                     <Button variant='primary'
                     onClick={()=>this.setState({addModalShow:true})}>
