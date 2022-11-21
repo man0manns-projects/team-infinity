@@ -69,7 +69,7 @@ export class Home extends Component{
         return(
             <div>
             <div class="dashboard">
-                <h2>User Fundraisers</h2>
+                <h2>My Fundraisers</h2>
                 <CardGroup style={{width: '100%'}}>
                 {userfunds.map(fund =>
                 <Card style={{width: '18rem', height: '20rem'}}>
@@ -79,6 +79,10 @@ export class Home extends Component{
                         <Card.Text>{fund.txt_description}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
+                        <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
+                    <Button className="mr-2" variant="success">
+                    Donate</Button>
+                </Link>
                         </Link>
                     </Card.Body>
                 </Card>
@@ -106,6 +110,10 @@ export class Home extends Component{
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         </Link>
+                        <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
+                    <Button className="mr-2" variant="success">
+                    Donate</Button>
+                </Link>
                     </Card.Body>
                 </Card>
                 )}
@@ -130,6 +138,10 @@ return(                <div>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         </Link>
+                        <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
+                    <Button className="mr-2" variant="success">
+                    Donate</Button>
+                </Link>
                     </Card.Body>
                 </Card>
                 )}
