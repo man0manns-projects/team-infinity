@@ -193,8 +193,11 @@ export default function DonationForm(){
             </Accordion.Header>
             <Accordion.Body>
                 <Form.Control type="card" placeholder="Card Holder Name" value={cardHolder} onChange={(e) => setCardholder(e.target.value)}/>
+                <br></br>
                 <Form.Control type="card" placeholder="Card Number (No spaces)" value={cardNumber} onChange={(e) => setCardnumber(e.target.value)}/>
+                <br></br>
                 <Form.Control type="card" placeholder="CVV" value={cvv} onChange={(e) => setCVV(e.target.value)}/>
+                <br></br>
                 <Form.Control type="card" placeholder="Expiration Date (MMYY)" value={exp} onChange={(e) => setExp(e.target.value)}/>
 
             </Accordion.Body>
@@ -205,7 +208,9 @@ export default function DonationForm(){
               </Accordion.Header>
               <Accordion.Body>
                 <Form.Control type="bank" placeholder="Routing Number" value={routingNumber} onChange={(e) => setRoutingnum(e.target.value)}/>
+                <br></br>
                 <Form.Control type="card" placeholder="Account Number" value={accountNumber} onChange={(e) => setAccountnum(e.target.value)}/>
+                <br></br>
             </Accordion.Body>
             </Accordion.Item>
 
