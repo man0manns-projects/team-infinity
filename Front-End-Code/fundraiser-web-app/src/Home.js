@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Table} from 'react-bootstrap';
+import {Card, Table, CardGroup} from 'react-bootstrap';
 
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import {EditFundModal} from './utils/EditFundModal';
@@ -17,12 +17,15 @@ export class Home extends Component{
 
     refreshUserList(){
         const userID = sessionStorage.getItem('token');
-
-            fetch(process.env.REACT_APP_API + 'Dashboard/User?userID=' + userID)
+        if(userID != 0){
+    fetch(process.env.REACT_APP_API + 'Dashboard/User?userID=' + userID)
             .then(response=>response.json())
             .then(data=>{
                 this.setState({userfunds:data});
             });
+        } else{
+            this.setState({userfunds: null});
+        }
     }
 
     refreshOtherList(){
@@ -31,12 +34,14 @@ export class Home extends Component{
             fetch(process.env.REACT_APP_API + 'Dashboard?userID=' + userID)
             .then(response=>response.json())
             .then(data=>{
-                this.setState({userfunds:data});
+                this.setState({otherfunds:data});
             });
     }
 
     componentDidMount(){
         this.refreshUserList();
+        this.refreshOtherList();
+        console.log(JSON.stringify(this.state.userfunds))
     }
 
 /*     componentDidUpdate(){
@@ -56,50 +61,35 @@ export class Home extends Component{
 
 
     render(){
-        const {userfunds, fundraiser_id,title}=this.state;
+        const {userfunds, otherfunds}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
         let editModalClose=()=>this.setState({editModalShow:false});
+        const userID = sessionStorage.getItem('token');
+        if(userID != 0){
         return(
             <div>
             <div class="dashboard">
-                <h2>User Fundraisers</h2>
-                <Table className="mt-4" striped bordered hover size="sm">
-                    <thead>
-                        <tr>
-                            <th>FundraiserId</th>
-                            <th>Name</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userfunds.map(fund=>
-                            <tr key={fund.fundraiser_id}>
-                                <td>{fund.fundraiser_id}</td>
-                                <td>{fund.title}</td>
-                                <td>
-<ButtonToolbar>
-    <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
-        <Button className="mr-2" variant="info">
-        Details
-        </Button>
-    </Link>
-
-        <Button className="mr-2" variant="danger"
-    onClick={()=>this.deleteFundraiser(userfunds.fundraiser_id)}>
-            Delete
-        </Button>
-
-</ButtonToolbar>
-
-                                </td>
-
-                            </tr>)
-                            }
-                    </tbody>
-
-                </Table>
-
-                <ButtonToolbar>
+                <h2>My Fundraisers</h2>
+                <CardGroup style={{width: '100%'}}>
+                {userfunds.map(fund =>
+                <Card style={{width: '18rem', height: '20rem'}}>
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
+                    <Card.Body >
+                        <Card.Title>{fund.title}</Card.Title>
+                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
+                        <Button className="mr-2" variant="info">Details</Button>
+                        <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
+                    <Button className="mr-2" variant="success">
+                    Donate</Button>
+                </Link>
+                        </Link>
+                    </Card.Body>
+                </Card>
+                )}
+                </CardGroup>
+                <br></br>
+             <ButtonToolbar>
                     <Button variant='primary'
                     onClick={()=>this.setState({addModalShow:true})}>
                     Create New Fundraiser</Button>
@@ -110,45 +100,55 @@ export class Home extends Component{
 
 <div class="dashboard">
     <h2>Other Fundraisers</h2>
-                <Table className="mt-4" striped bordered hover size="sm">
-                    <thead>
-                        <tr>
-                            <th>FundraiserId</th>
-                            <th>Name</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userfunds.map(fund=>
-                            <tr key={fund.fundraiser_id}>
-                                <td>{fund.fundraiser_id}</td>
-                                <td>{fund.title}</td>
-                                <td>
-<ButtonToolbar>
-    <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
-        <Button className="mr-2" variant="info">
-        Details
-        </Button>
-    </Link>
+    <CardGroup style={{width: '100%'}}>
+                {otherfunds.map(fund =>
+                <Card style={{width: '18rem', height: '20rem'}}>
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
+                    <Card.Body >
+                        <Card.Title>{fund.title}</Card.Title>
+                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
+                        <Button className="mr-2" variant="info">Details</Button>
+                        </Link>
+                        <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
+                    <Button className="mr-2" variant="success">
+                    Donate</Button>
+                </Link>
+                    </Card.Body>
+                </Card>
+                )}
+                </CardGroup> 
+    </div> 
+    </div>
+    ) }else{
+return(                <div>
+                <div class="guestview">
+                    <h3>You are browsing as a guest</h3>
+                    <p>You can still donate to other's fundraisers. But in order to create and manage your own fundraisers, you will need to create an account. </p>
+                </div>
+                <div class="dashboard">
+    <h2>Other Fundraisers</h2>
+    <CardGroup style={{width: '100%'}}>
+                {otherfunds.map(fund =>
+                <Card style={{width: '18rem', height: '20rem'}}>
+                    <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
+                    <Card.Body >
+                        <Card.Title>{fund.title}</Card.Title>
+                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
+                        <Button className="mr-2" variant="info">Details</Button>
+                        </Link>
+                        <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
+                    <Button className="mr-2" variant="success">
+                    Donate</Button>
+                </Link>
+                    </Card.Body>
+                </Card>
+                )}
+                </CardGroup>
+                </div>
+                </div>
 
-        <Button className="mr-2" variant="danger"
-    onClick={()=>this.deleteFundraiser(userfunds.fundraiser_id)}>
-            Delete
-        </Button>
-
-</ButtonToolbar>
-
-                                </td>
-
-                            </tr>)
-                            }
-                    </tbody>
-
-                </Table>
-</div>
-</div>
-
-            
-        )
+            )}
     }
 }

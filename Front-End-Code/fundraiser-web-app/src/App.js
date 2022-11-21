@@ -1,4 +1,5 @@
 import React from 'react'
+import {useState} from 'react';
 import {NavLink, BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import {Navbar,Nav, NavItem} from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -15,10 +16,7 @@ import SignUp from './SignUp';
 import Login from './Login';
 import useToken from './utils/useToken';
 
-async function helloUser(identifier){
-  return fetch('http://20.169.81.116:5199/api/Dashboard/Hello?userID='+ identifier)
-  .then(res => res.json()) 
-}
+
 
 async function setGuest(){
   const saveToken = '0';
@@ -27,16 +25,24 @@ async function setGuest(){
 
 
 function App() {
-
+  const[name, setName] = useState();
   //to logout user
   const logout = () => {
     sessionStorage.clear()
   }
 
-  const {token, setToken} = useToken();
- 
+  async function helloUser(identifier){
+    fetch(process.env.REACT_APP_API+'Dashboard/Hello?userID='+ identifier)
+    .then(res => res.json())
+    .then(data=>{
+      const fname = JSON.parse(JSON.stringify(data))[0].f_name;
+      setName(fname);
+    }) 
+  }
 
+  const {token, setToken} = useToken();
   let userID = sessionStorage.getItem('token');
+  helloUser(userID);
   if(!userID || userID == "0" ) {
     return (
       <BrowserRouter>
@@ -53,7 +59,7 @@ function App() {
 
                   <Dropdown>
                     <Dropdown.Toggle variant="secondary" id="dropdown-button-dark-example1">
-                      Hello test!
+                      Hello {name}!
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu variant="dark">
@@ -80,7 +86,7 @@ function App() {
 
                 <Route exact path="/TEST-donation-form" element={ <DonationForm />} />
                 <Route exact path="/signup" element={ <SignUp />} />
-                <Route exact path="/profile" element={ <UserProfile />} />
+
 
 
               </Routes>
@@ -107,7 +113,7 @@ function App() {
                 </NavLink>
                 <Dropdown>
                     <Dropdown.Toggle variant="secondary" id="dropdown-button-dark-example1">
-                      Hello test!
+                      Hello {name}!
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu variant="dark">
@@ -127,6 +133,7 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route exact path="/user" element={<UserProfile />} />
               <Route exact path="/login" element={ <Navigate to="/user" /> }/>
+              <Route exact path="/profile" element={ <UserProfile />} />
 
               {/* TODO: Add this to the dashboard "table buttons" instead of its own page */}
               <Route exact path='/TEST-fundraiser/:id' element={<ViewFundraiser />} />
