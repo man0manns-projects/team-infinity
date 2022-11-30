@@ -72,7 +72,7 @@ export default function SignUp(){
             
             <br></br>
             <Row classname="mb-3">
-            <Button variant="success float-right" type="submit" onClick={handleSubmit} >
+            <Button  data-testid= "button" variant="success float-right" type="submit" onClick={handleSubmit} >
               Sign Up
             </Button>
             

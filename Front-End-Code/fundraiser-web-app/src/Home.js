@@ -78,7 +78,7 @@ export class Home extends Component{
                         <Card.Title>{fund.title}</Card.Title>
                         <Card.Text>{fund.txt_description}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
-                        <Button className="mr-2" variant="info">Details</Button>
+                        <Button data-testId= "detail" className="mr-2" variant="info">Details</Button>
                         <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
                     <Button className="mr-2" variant="success">
                     Donate</Button>
