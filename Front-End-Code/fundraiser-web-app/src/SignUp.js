@@ -23,7 +23,7 @@ export default function SignUp(){
         e.preventDefault();
         try{
 
-          let res = await fetch('http://20.169.81.116:5199/api/user?userID='+ userID + '&firstName=' + firstName + '&lastName=' + lastName + '&userEmail=' + userEmail + '&password=' + password, {
+          let res = await fetch('http://20.169.81.116:5199/api/Login?firstName=' + firstName + '&lastName=' + lastName + '&userEmail=' + userEmail + '&password=' + password, {
             method:"POST",
           });
   
