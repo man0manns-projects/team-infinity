@@ -23,7 +23,7 @@ namespace WebAPI2.Controllers
         public JsonResult GetOtherFundraisers(int userID)
         {
             string query = @"
-                    SELECT TOP 8 * FROM dbo.fundraisers WHERE user_id != @current_userid";
+                    SELECT TOP 5 * FROM dbo.fundraisers WHERE user_id != @current_userid";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
@@ -51,7 +51,7 @@ namespace WebAPI2.Controllers
         public JsonResult GetMyFundraisers(int userID)
         {
             string query = @"
-                    SELECT TOP 8 * FROM dbo.fundraisers WHERE user_id = @current_userid";
+                    SELECT TOP 5 * FROM dbo.fundraisers WHERE user_id = @current_userid";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("FundraiserAppCon");
             SqlDataReader myReader;
