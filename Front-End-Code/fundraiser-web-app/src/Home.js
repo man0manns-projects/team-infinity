@@ -8,6 +8,7 @@ import {AddFundModal} from './utils/AddFundModal';
 
 
 
+
 export class Home extends Component{
 
     constructor(props){
@@ -76,7 +77,7 @@ export class Home extends Component{
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
-                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Card.Text>{`${fund.txt_description.substring(0, 40)}...`}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
@@ -102,11 +103,11 @@ export class Home extends Component{
     <h2>Other Fundraisers</h2>
     <CardGroup style={{width: '100%'}}>
                 {otherfunds.map(fund =>
-                <Card style={{width: '18rem', height: '20rem'}}>
+                <Card style={{width: '30rem', height: '20rem'}}>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
-                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Card.Text>{`${fund.txt_description.substring(0, 40)}...`}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         </Link>
@@ -134,7 +135,7 @@ return(                <div>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
-                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Card.Text>{`${fund.txt_description.substring(0, 40)}...`}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         </Link>
