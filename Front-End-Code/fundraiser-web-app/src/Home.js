@@ -45,21 +45,6 @@ export class Home extends Component{
         console.log(JSON.stringify(this.state.userfunds))
     }
 
-/*     componentDidUpdate(){
-        this.refreshList();
-    } */
-/* 
-    deleteFundraiser(fundraiser_id){
-        if(window.confirm('Are you sure?')){
-            fetch(process.env.REACT_APP_API+fundraiser_id,{
-                method:'DELETE',
-                header:{'Accept':'application/json',
-            'Content-Type':'application/json'}
-            })
-        }
-    }
- */
-
 
     render(){
         const {userfunds, otherfunds}=this.state;
