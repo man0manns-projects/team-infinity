@@ -50,10 +50,10 @@ function App() {
                   <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                   <Navbar.Collapse id="basic-navbar-nav">
                   <Nav>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/">
+                  <NavLink data-testid="home-link" className="d-inline p-2 bg-dark text-white" to="/">
                       Home
                   </NavLink>
-                  <NavLink className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
+                  <NavLink data-testid="fundraiser-link" className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
                       Fundraisers
                   </NavLink>
 
@@ -105,10 +105,10 @@ function App() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/">
+                <NavLink data-testid="home-link" className="d-inline p-2 bg-dark text-white" to="/">
                     Home
                 </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
+                <NavLink data-testid="fundraiser-link" className="d-inline p-2 bg-dark text-white" to="/Fundraisers">
                     Fundraisers
                 </NavLink>
                 <Dropdown>
@@ -117,7 +117,7 @@ function App() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu variant="dark">
-                      <Dropdown.Item href="/profile">User Profile</Dropdown.Item>
+                      <Dropdown.Item data-testid="profile-link" href="/profile">User Profile</Dropdown.Item>
                       <Dropdown.Item href="/" onClickCapture={logout}>Logout</Dropdown.Item>
 
                     </Dropdown.Menu>
