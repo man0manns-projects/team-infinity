@@ -8,6 +8,7 @@ import {AddFundModal} from './utils/AddFundModal';
 
 
 
+
 export class Home extends Component{
 
     constructor(props){
@@ -44,21 +45,6 @@ export class Home extends Component{
         console.log(JSON.stringify(this.state.userfunds))
     }
 
-/*     componentDidUpdate(){
-        this.refreshList();
-    } */
-/* 
-    deleteFundraiser(fundraiser_id){
-        if(window.confirm('Are you sure?')){
-            fetch(process.env.REACT_APP_API+fundraiser_id,{
-                method:'DELETE',
-                header:{'Accept':'application/json',
-            'Content-Type':'application/json'}
-            })
-        }
-    }
- */
-
 
     render(){
         const {userfunds, otherfunds}=this.state;
@@ -68,17 +54,17 @@ export class Home extends Component{
         if(userID != 0){
         return(
             <div>
-            <div class="dashboard">
-                <h2>My Fundraisers</h2>
+            <div className="dashboard">
+                <h2 data-testid="user-header">My Fundraisers</h2>
                 <CardGroup style={{width: '100%'}}>
                 {userfunds.map(fund =>
                 <Card style={{width: '18rem', height: '20rem'}}>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
-                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Card.Text>{`${fund.txt_description.substring(0, 40)}...`}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
-                        <Button data-testId= "detail" className="mr-2" variant="info">Details</Button>
+                        <Button className="mr-2" variant="info">Details</Button>
                         <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
                     <Button className="mr-2" variant="success">
                     Donate</Button>
@@ -98,15 +84,15 @@ export class Home extends Component{
             </div>
 
 
-<div class="dashboard">
+<div className="dashboard">
     <h2>Other Fundraisers</h2>
     <CardGroup style={{width: '100%'}}>
                 {otherfunds.map(fund =>
-                <Card style={{width: '18rem', height: '20rem'}}>
+                <Card style={{width: '30rem', height: '20rem'}}>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
-                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Card.Text>{`${fund.txt_description.substring(0, 40)}...`}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         </Link>
@@ -122,11 +108,11 @@ export class Home extends Component{
     </div>
     ) }else{
 return(                <div>
-                <div class="guestview">
+                <div className="guestview">
                     <h3>You are browsing as a guest</h3>
                     <p>You can still donate to other's fundraisers. But in order to create and manage your own fundraisers, you will need to create an account. </p>
                 </div>
-                <div class="dashboard">
+                <div className="dashboard">
     <h2>Other Fundraisers</h2>
     <CardGroup style={{width: '100%'}}>
                 {otherfunds.map(fund =>
@@ -134,12 +120,12 @@ return(                <div>
                     <Card.Img variant="top" src={`data:image/jpeg;base64,${fund.image}`} style={{height:"50%"}}/>
                     <Card.Body >
                         <Card.Title>{fund.title}</Card.Title>
-                        <Card.Text>{fund.txt_description}</Card.Text>
+                        <Card.Text>{`${fund.txt_description.substring(0, 40)}...`}</Card.Text>
                         <Link to ={`/TEST-fundraiser/${fund.fundraiser_id}`}>
                         <Button className="mr-2" variant="info">Details</Button>
                         </Link>
                         <Link to="/TEST-donation-form" state={{title: fund.title, id: fund.fundraiser_id}} state2={{id: fund.fundraiser_id}}>
-                    <Button className="mr-2" variant="success">
+                    <Button classNameName="mr-2" variant="success">
                     Donate</Button>
                 </Link>
                     </Card.Body>
@@ -152,3 +138,5 @@ return(                <div>
             )}
     }
 }
+
+export default Home;
