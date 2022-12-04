@@ -120,7 +120,7 @@ centered
     </Modal.Body>
     
     <Modal.Footer>
-        <Button variant="danger" onClick={this.props.onHide}>Cancel</Button>
+        <Button variant="danger" onClick={this.props.onHide}>Close</Button>
     </Modal.Footer>
 
 </Modal>
