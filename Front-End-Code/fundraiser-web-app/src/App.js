@@ -117,7 +117,7 @@ function App() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu variant="dark">
-                      <Dropdown.Item href="/profile">User Profile</Dropdown.Item>
+                      <Dropdown.Item data-testid="profile-link" href="/profile">User Profile</Dropdown.Item>
                       <Dropdown.Item href="/" onClickCapture={logout}>Logout</Dropdown.Item>
 
                     </Dropdown.Menu>
