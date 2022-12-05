@@ -27,5 +27,4 @@ Obviously we will have an official project plan, but this is a just rough draft 
 - App prototype ready by Oct. 15
 **Stretch goals**
 - Deploy the project into a windows server/cloud instance
-- Security scan your application & fix Critical issues at a minimum
-- Options for user if they forgot their username or password
+- Web API layer
