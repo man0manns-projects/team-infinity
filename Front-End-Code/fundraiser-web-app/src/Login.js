@@ -66,7 +66,7 @@ export default function Login({setToken}){
           </div>
         </div>
         <div className="sub-button">
-          <button type="submit" className="btn btn-success btn-lg btn-block" onClick={handleSubmit}>
+          <button data-testId= "submit" type="submit" className="btn btn-success btn-lg btn-block" onClick={handleSubmit}>
             Submit
           </button>
         </div>
